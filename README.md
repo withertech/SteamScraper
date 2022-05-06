@@ -54,7 +54,7 @@ When you've installed the prerequisites as described above, you can install Skys
 $ cd
 $ mkdir skysource
 $ cd skysource
-$ wget -q -O - https://raw.githubusercontent.com/muldjord/skyscraper/master/update_skyscraper.sh | bash
+$ wget -q -O - https://raw.githubusercontent.com/withertech/SteamScraper/master/update_steamscraper.sh | bash
 ```
 The last command will download and run the latest update script from Github. During the installation you might be asked for your sudo password. On RetroPie the default password is `raspberry`.
 
@@ -65,7 +65,7 @@ From Skyscraper 2.3.2 and newer you can update to the latest version simply by r
 ```
 $ cd
 $ cd skysource
-$ ./update_skyscraper.sh
+$ ./update_steamscraperr.sh
 ```
 You might be asked for your sudo password during the update. On RetroPie the default password is `raspberry`. If your version is older than 2.3.2 (check with `--help`) you need to follow the [installation instructions](#download-compile-and-install) instead.
 
