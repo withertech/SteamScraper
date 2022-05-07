@@ -170,14 +170,26 @@ Enables/disables cropping away the black borders around the screenshot resources
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
-#### cacheWheels="true"
-Enables/disables the caching of the resource type `wheel` when scraping with any module. If you never use wheels in your artwork configuration, setting this to `"false"` can save you some space.
+#### cacheLogos="true"
+Enables/disables the caching of the resource type `logo` when scraping with any module. If you never use logos in your artwork configuration, setting this to `"false"` can save you some space.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<SCRAPING MODULE>]`
 
 #### cacheMarquees="true"
 Enables/disables the caching of the resource type `marquee` when scraping with any module. If you never use marquees in your artwork configuration, setting this to `"false"` can save you some space.
+
+###### Allowed in sections
+`[main]`, `[<PLATFORM>]`, `[<SCRAPING MODULE>]`
+
+#### cacheSteamgrids="true"
+Enables/disables the caching of the resource type `steamgrid` when scraping with any module. If you never use marquees in your artwork configuration, setting this to `"false"` can save you some space.
+
+###### Allowed in sections
+`[main]`, `[<PLATFORM>]`, `[<SCRAPING MODULE>]`
+
+#### cacheHeroes="true"
+Enables/disables the caching of the resource type `hero` when scraping with any module. If you never use marquees in your artwork configuration, setting this to `"false"` can save you some space.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<SCRAPING MODULE>]`

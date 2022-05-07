@@ -36,8 +36,10 @@ ImportScraper::ImportScraper(Settings *config,
   fetchOrder.append(PUBLISHER);
   fetchOrder.append(COVER);
   fetchOrder.append(SCREENSHOT);
-  fetchOrder.append(WHEEL);
+  fetchOrder.append(LOGO);
   fetchOrder.append(MARQUEE);
+  fetchOrder.append(STEAMGRID);
+  fetchOrder.append(HERO);
   fetchOrder.append(VIDEO);
   fetchOrder.append(RELEASEDATE);
   fetchOrder.append(TAGS);
@@ -50,9 +52,13 @@ ImportScraper::ImportScraper(Settings *config,
 		QDir::Name, QDir::Files | QDir::NoDotAndDotDot).entryInfoList();
   screenshots = QDir(config->importFolder + "/screenshots", "*.*",
 	       QDir::Name, QDir::Files | QDir::NoDotAndDotDot).entryInfoList();
-  wheels = QDir(config->importFolder + "/wheels", "*.*",
-		QDir::Name, QDir::Files | QDir::NoDotAndDotDot).entryInfoList();
+  logos = QDir(config->importFolder + "/logos", "*.*",
+                 QDir::Name, QDir::Files | QDir::NoDotAndDotDot).entryInfoList();
   marquees = QDir(config->importFolder + "/marquees", "*.*",
+		  QDir::Name, QDir::Files | QDir::NoDotAndDotDot).entryInfoList();
+  steamgrids = QDir(config->importFolder + "/steamgrids", "*.*",
+		  QDir::Name, QDir::Files | QDir::NoDotAndDotDot).entryInfoList();
+  heroes = QDir(config->importFolder + "/heroes", "*.*",
 		  QDir::Name, QDir::Files | QDir::NoDotAndDotDot).entryInfoList();
   videos = QDir(config->importFolder + "/videos", "*.*",
 		QDir::Name, QDir::Files | QDir::NoDotAndDotDot).entryInfoList();
@@ -113,11 +119,17 @@ void ImportScraper::getGameData(GameEntry &game)
     case SCREENSHOT:
       getScreenshot(game);
       break;
-    case WHEEL:
-      getWheel(game);
+    case LOGO:
+        getLogo(game);
       break;
     case MARQUEE:
       getMarquee(game);
+      break;
+    case STEAMGRID:
+      getSteamgrid(game);
+      break;
+    case HERO:
+      getHero(game);
       break;
     case VIDEO:
       if(config->videos) {
@@ -136,17 +148,21 @@ void ImportScraper::runPasses(QList<GameEntry> &gameEntries, const QFileInfo &in
   textualFile = "";
   screenshotFile = "";
   coverFile = "";
-  wheelFile = "";
+  logoFile = "";
   marqueeFile = "";
+  steamgridFile = "";
+  heroFile = "";
   videoFile = "";
   GameEntry game;
   bool textualFound = checkType(info.completeBaseName(), textual, textualFile);
   bool screenshotFound = checkType(info.completeBaseName(), screenshots, screenshotFile);
   bool coverFound = checkType(info.completeBaseName(), covers, coverFile);
-  bool wheelFound = checkType(info.completeBaseName(), wheels, wheelFile);
+  bool logoFound = checkType(info.completeBaseName(), logos, logoFile);
   bool marqueeFound = checkType(info.completeBaseName(), marquees, marqueeFile);
+  bool steamgridFound = checkType(info.completeBaseName(), steamgrids, steamgridFile);
+  bool heroFound = checkType(info.completeBaseName(), heroes, heroFile);
   bool videoFound = checkType(info.completeBaseName(), videos, videoFile);
-  if(textualFound || screenshotFound || coverFound || wheelFound || marqueeFound || videoFound) {
+  if(textualFound || screenshotFound || coverFound || logoFound || marqueeFound || steamgridFound || heroFound || videoFound) {
     game.title = info.completeBaseName();
     game.platform = config->platform;
     gameEntries.append(game);
@@ -180,12 +196,12 @@ void ImportScraper::getScreenshot(GameEntry &game)
   }
 }
 
-void ImportScraper::getWheel(GameEntry &game)
+void ImportScraper::getLogo(GameEntry &game)
 {
-  if(!wheelFile.isEmpty()) {
-    QFile f(wheelFile);
+  if(!logoFile.isEmpty()) {
+    QFile f(logoFile);
     if(f.open(QIODevice::ReadOnly)) {
-      game.wheelData = f.readAll();
+      game.logoData = f.readAll();
       f.close();
     }
   }
@@ -197,6 +213,28 @@ void ImportScraper::getMarquee(GameEntry &game)
     QFile f(marqueeFile);
     if(f.open(QIODevice::ReadOnly)) {
       game.marqueeData = f.readAll();
+      f.close();
+    }
+  }
+}
+
+void ImportScraper::getSteamgrid(GameEntry &game)
+{
+  if(!steamgridFile.isEmpty()) {
+    QFile f(steamgridFile);
+    if(f.open(QIODevice::ReadOnly)) {
+      game.steamgridData = f.readAll();
+      f.close();
+    }
+  }
+}
+
+void ImportScraper::getHero(GameEntry &game)
+{
+  if(!heroFile.isEmpty()) {
+    QFile f(heroFile);
+    if(f.open(QIODevice::ReadOnly)) {
+      game.heroData = f.readAll();
       f.close();
     }
   }

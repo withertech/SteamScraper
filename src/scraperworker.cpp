@@ -33,15 +33,10 @@
 #include "settings.h"
 #include "compositor.h"
 
-#include "openretro.h"
-#include "thegamesdb.h"
-#include "worldofspectrum.h"
 #include "screenscraper.h"
-#include "igdb.h"
-#include "mobygames.h"
+
 #include "localscraper.h"
 #include "importscraper.h"
-#include "arcadedb.h"
 #include "esgamelist.h"
 
 ScraperWorker::ScraperWorker(QSharedPointer<Queue> queue,
@@ -59,20 +54,8 @@ ScraperWorker::~ScraperWorker()
 
 void ScraperWorker::run()
 {
-  if(config.scraper == "openretro") {
-    scraper = new OpenRetro(&config, manager);
-  } else if(config.scraper == "thegamesdb") {
-    scraper = new TheGamesDb(&config, manager);
-  } else if(config.scraper == "arcadedb") {
-    scraper = new ArcadeDB(&config, manager);
-  } else if(config.scraper == "screenscraper") {
+  if(config.scraper == "screenscraper") {
     scraper = new ScreenScraper(&config, manager);
-  } else if(config.scraper == "igdb") {
-    scraper = new Igdb(&config, manager);
-  } else if(config.scraper == "mobygames") {
-    scraper = new MobyGames(&config, manager);
-  } else if(config.scraper == "worldofspectrum") {
-    scraper = new WorldOfSpectrum(&config, manager);
   } else if(config.scraper == "esgamelist") {
     scraper = new ESGameList(&config, manager);
   } else if(config.scraper == "cache") {
@@ -347,8 +330,10 @@ void ScraperWorker::run()
     output.append("Rating (0-1):   '\033[1;32m" + game.rating + "\033[0m' (" + game.ratingSrc + ")\n");
     output.append("Cover:          " + QString((game.coverData.isNull()?"\033[1;31mNO":"\033[1;32mYES")) + "\033[0m" + QString((config.cacheCovers || config.scraper == "cache"?"":" (uncached)")) + " (" + game.coverSrc + ")\n");
     output.append("Screenshot:     " + QString((game.screenshotData.isNull()?"\033[1;31mNO":"\033[1;32mYES")) + "\033[0m" + QString((config.cacheScreenshots || config.scraper == "cache"?"":" (uncached)")) + " (" + game.screenshotSrc + ")\n");
-    output.append("Wheel:          " + QString((game.wheelData.isNull()?"\033[1;31mNO":"\033[1;32mYES")) + "\033[0m" + QString((config.cacheWheels || config.scraper == "cache"?"":" (uncached)")) + " (" + game.wheelSrc + ")\n");
+    output.append("Logo:           " + QString((game.logoData.isNull() ? "\033[1;31mNO" : "\033[1;32mYES")) + "\033[0m" + QString((config.cacheLogos || config.scraper == "cache" ? "" : " (uncached)")) + " (" + game.logoSrc + ")\n");
     output.append("Marquee:        " + QString((game.marqueeData.isNull()?"\033[1;31mNO":"\033[1;32mYES")) + "\033[0m" + QString((config.cacheMarquees || config.scraper == "cache"?"":" (uncached)")) + " (" + game.marqueeSrc + ")\n");
+    output.append("Steamgrid:      " + QString((game.steamgridData.isNull()?"\033[1;31mNO":"\033[1;32mYES")) + "\033[0m" + QString((config.cacheSteamgrids || config.scraper == "cache"?"":" (uncached)")) + " (" + game.steamgridSrc + ")\n");
+    output.append("Hero:           " + QString((game.heroData.isNull()?"\033[1;31mNO":"\033[1;32mYES")) + "\033[0m" + QString((config.cacheHeroes || config.scraper == "cache"?"":" (uncached)")) + " (" + game.heroSrc + ")\n");
     if(config.videos) {
       output.append("Video:          " + QString((game.videoFormat.isEmpty()?"\033[1;31mNO":"\033[1;32mYES")) + "\033[0m" + QString((game.videoData.size() <= config.videoSizeLimit?"":" (size exceeded, uncached)")) + " (" + game.videoSrc + ")\n");
     }

@@ -64,10 +64,14 @@ QImage FxGamebox::applyEffect(const QImage &src, const Layer &layer,
     sideImage = QImage::fromData(game.coverData);
   } else if(layer.resource == "screenshot") {
     sideImage = QImage::fromData(game.screenshotData);
-  } else if(layer.resource == "wheel") {
-    sideImage = QImage::fromData(game.wheelData);
+  } else if(layer.resource == "logo") {
+    sideImage = QImage::fromData(game.logoData);
   } else if(layer.resource == "marquee") {
     sideImage = QImage::fromData(game.marqueeData);
+  } else if(layer.resource == "steamgrid") {
+    sideImage = QImage::fromData(game.steamgridData);
+  } else if(layer.resource == "hero") {
+    sideImage = QImage::fromData(game.heroData);
   } else {
     sideImage = QImage(config->resources[layer.resource]);
   }

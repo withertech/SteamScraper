@@ -144,17 +144,14 @@ QStringList Platform::getScrapers(QString platform)
   } else if(platform == "3ds") {
     scrapers.append("screenscraper");
   } else if(platform == "amiga") {
-    scrapers.append("openretro");
     scrapers.append("screenscraper");
   } else if(platform == "amigacd32") {
-    scrapers.append("openretro");
     scrapers.append("screenscraper");
   } else if(platform == "amstradcpc") {
     scrapers.append("screenscraper");
   } else if(platform == "apple2") {
     scrapers.append("screenscraper");
   } else if(platform == "arcade") {
-    scrapers.append("arcadedb");
     scrapers.append("screenscraper");
   } else if(platform == "arcadia") {
     scrapers.append("screenscraper");
@@ -199,7 +196,6 @@ QStringList Platform::getScrapers(QString platform)
   } else if(platform == "easyrpg") {
     scrapers.append("screenscraper");
   } else if(platform == "fba") {
-    scrapers.append("arcadedb");
     scrapers.append("screenscraper");
   } else if(platform == "fds") {
     scrapers.append("screenscraper");
@@ -220,13 +216,10 @@ QStringList Platform::getScrapers(QString platform)
   } else if(platform == "intellivision") {
     scrapers.append("screenscraper");
   } else if(platform == "mame-advmame") {
-    scrapers.append("arcadedb");
     scrapers.append("screenscraper");
   } else if(platform == "mame-libretro") {
-    scrapers.append("arcadedb");
     scrapers.append("screenscraper");
   } else if(platform == "mame-mame4all") {
-    scrapers.append("arcadedb");
     scrapers.append("screenscraper");
   } else if(platform == "mastersystem") {
     scrapers.append("screenscraper");
@@ -247,7 +240,6 @@ QStringList Platform::getScrapers(QString platform)
   } else if(platform == "nds") {
     scrapers.append("screenscraper");
   } else if(platform == "neogeo") {
-    scrapers.append("arcadedb");
     scrapers.append("screenscraper");
   } else if(platform == "neogeocd") {
     scrapers.append("screenscraper");
@@ -262,11 +254,11 @@ QStringList Platform::getScrapers(QString platform)
   } else if(platform == "oric") {
     scrapers.append("screenscraper");
   } else if(platform == "pc") {
-    scrapers.append("thegamesdb");
+    scrapers.append("screenscraper");
   } else if(platform == "pc88") {
-    scrapers.append("thegamesdb");
+    scrapers.append("screenscraper");
   } else if(platform == "pc98") {
-    scrapers.append("thegamesdb");
+    scrapers.append("screenscraper");
   } else if(platform == "pcfx") {
     scrapers.append("screenscraper");
   } else if(platform == "pcengine") {
@@ -276,20 +268,17 @@ QStringList Platform::getScrapers(QString platform)
   } else if(platform == "pokemini") {
     scrapers.append("screenscraper");
   } else if(platform == "ports") {
-    scrapers.append("thegamesdb");
+    scrapers.append("screenscraper");
   } else if(platform == "ps2") {
     scrapers.append("screenscraper");
-    scrapers.append("thegamesdb");
   } else if(platform == "psp") {
     scrapers.append("screenscraper");
   } else if(platform == "psx") {
     scrapers.append("screenscraper");
-    scrapers.append("thegamesdb");
   } else if(platform == "saturn") {
     scrapers.append("screenscraper");
   } else if(platform == "scummvm") {
     scrapers.append("screenscraper");
-    scrapers.append("thegamesdb");
   } else if(platform == "sega32x") {
     scrapers.append("screenscraper");
   } else if(platform == "segacd") {
@@ -315,10 +304,8 @@ QStringList Platform::getScrapers(QString platform)
   } else if(platform == "virtualboy") {
     scrapers.append("screenscraper");
   } else if(platform == "wii") {
-    scrapers.append("thegamesdb");
     scrapers.append("screenscraper");
   } else if(platform == "wiiu") {
-    scrapers.append("thegamesdb");
     scrapers.append("screenscraper");
   } else if(platform == "wonderswan") {
     scrapers.append("screenscraper");
@@ -329,11 +316,10 @@ QStringList Platform::getScrapers(QString platform)
   } else if(platform  == "x1") {
     scrapers.append("screenscraper");
   } else if(platform  == "zmachine") {
-    scrapers.append("thegamesdb");
+    scrapers.append("screenscraper");
   } else if(platform  == "zx81") {
     scrapers.append("screenscraper");
   } else if(platform  == "zxspectrum") {
-    scrapers.append("worldofspectrum");
     scrapers.append("screenscraper");
   }
 

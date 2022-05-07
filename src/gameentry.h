@@ -36,10 +36,12 @@ constexpr int COVER = 6;
 constexpr int SCREENSHOT = 7;
 constexpr int VIDEO = 8;
 constexpr int RATING = 9;
-constexpr int WHEEL = 10;
+constexpr int LOGO = 10;
 constexpr int MARQUEE = 11;
-constexpr int AGES = 12;
-constexpr int TITLE = 13;
+constexpr int STEAMGRID = 12;
+constexpr int HERO = 13;
+constexpr int AGES = 14;
+constexpr int TITLE = 15;
 
 #include <QImage>
 
@@ -80,12 +82,18 @@ public:
   QByteArray screenshotData = QByteArray();
   QString screenshotFile = "";
   QString screenshotSrc = "";
-  QByteArray wheelData = QByteArray();
-  QString wheelFile = "";
-  QString wheelSrc = "";
+  QByteArray logoData = QByteArray();
+  QString logoFile = "";
+  QString logoSrc = "";
   QByteArray marqueeData = QByteArray();
   QString marqueeFile = "";
   QString marqueeSrc = "";
+  QByteArray steamgridData = QByteArray();
+  QString steamgridFile = "";
+  QString steamgridSrc = "";
+  QByteArray heroData = QByteArray();
+  QString heroFile = "";
+  QString heroSrc = "";
   QByteArray videoData = "";
   QString videoFile = "";
   QString videoSrc = "";

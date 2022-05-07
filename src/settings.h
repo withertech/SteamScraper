@@ -47,8 +47,10 @@ struct Settings {
   bool mediaFolderHidden = false; // Only relevant for EmulationStation
   QString screenshotsFolder = "";
   QString coversFolder = "";
-  QString wheelsFolder = "";
+  QString logosFolder = "";
   QString marqueesFolder = "";
+  QString steamgridsFolder = "";
+  QString heroesFolder = "";
   QString videosFolder = "";
   QString importFolder = "import";
   QString nameTemplate = "";
@@ -111,10 +113,14 @@ struct Settings {
   bool cacheScreenshots = true;
   bool skipExistingScreenshots= false;
   bool cropBlack = true; // If true, will crop away black borders around screenshots
-  bool cacheWheels = true;
-  bool skipExistingWheels = false;
+  bool cacheLogos = true;
+  bool skipExistingLogos = false;
   bool cacheMarquees = true;
   bool skipExistingMarquees = false;
+  bool cacheSteamgrids = true;
+  bool skipExistingSteamgrids = false;
+  bool cacheHeroes = true;
+  bool skipExistingHeroes = false;
   
   QString user = "";
   QString password = "";

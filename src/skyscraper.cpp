@@ -87,8 +87,10 @@ void Skyscraper::run()
   printf("Game list folder:   '\033[1;32m%s\033[0m'\n", config.gameListFolder.toStdString().c_str());
   printf("Covers folder:      '\033[1;32m%s\033[0m'\n", config.coversFolder.toStdString().c_str());
   printf("Screenshots folder: '\033[1;32m%s\033[0m'\n", config.screenshotsFolder.toStdString().c_str());
-  printf("Wheels folder:      '\033[1;32m%s\033[0m'\n", config.wheelsFolder.toStdString().c_str());
+  printf("Wheels folder:      '\033[1;32m%s\033[0m'\n", config.logosFolder.toStdString().c_str());
   printf("Marquees folder:    '\033[1;32m%s\033[0m'\n", config.marqueesFolder.toStdString().c_str());
+  printf("Steamgrids folder:  '\033[1;32m%s\033[0m'\n", config.steamgridsFolder.toStdString().c_str());
+  printf("Heroes folder:      '\033[1;32m%s\033[0m'\n", config.heroesFolder.toStdString().c_str());
   if(config.videos) {
     printf("Videos folder:      '\033[1;32m%s\033[0m'\n", config.videosFolder.toStdString().c_str());
   }
@@ -210,15 +212,25 @@ void Skyscraper::run()
     checkForFolder(screenshotsDir);
   config.screenshotsFolder = screenshotsDir.absolutePath();
 
-  QDir wheelsDir(config.wheelsFolder);
+  QDir logosDir(config.logosFolder);
   if(config.scraper == "cache" && !config.pretend)
-    checkForFolder(wheelsDir);
-  config.wheelsFolder = wheelsDir.absolutePath();
+    checkForFolder(logosDir);
+  config.logosFolder = logosDir.absolutePath();
 
   QDir marqueesDir(config.marqueesFolder);
   if(config.scraper == "cache" && !config.pretend)
     checkForFolder(marqueesDir);
   config.marqueesFolder = marqueesDir.absolutePath();
+
+  QDir steamgridsDir(config.steamgridsFolder);
+  if(config.scraper == "cache" && !config.pretend)
+    checkForFolder(steamgridsDir);
+  config.steamgridsFolder = steamgridsDir.absolutePath();
+
+  QDir heroesDir(config.heroesFolder);
+  if(config.scraper == "cache" && !config.pretend)
+    checkForFolder(heroesDir);
+  config.heroesFolder = heroesDir.absolutePath();
 
   if(config.videos) {
     QDir videosDir(config.videosFolder);
@@ -822,11 +834,17 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   if(settings.contains("cropBlack")) {
     config.cropBlack = settings.value("cropBlack").toBool();
   }
-  if(settings.contains("cacheWheels")) {
-    config.cacheWheels = settings.value("cacheWheels").toBool();
+  if(settings.contains("cacheLogos")) {
+    config.cacheLogos = settings.value("cacheLogos").toBool();
   }
   if(settings.contains("cacheMarquees")) {
     config.cacheMarquees = settings.value("cacheMarquees").toBool();
+  }
+  if(settings.contains("cacheSteamgrids")) {
+    config.cacheSteamgrids = settings.value("cacheMarquees").toBool();
+  }
+  if(settings.contains("cacheHeroes")) {
+    config.cacheHeroes = settings.value("cacheMarquees").toBool();
   }
   if(settings.contains("scummIni")) {
     config.scummIni = settings.value("scummIni").toString();
@@ -923,11 +941,17 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   if(settings.contains("cropBlack")) {
     config.cropBlack = settings.value("cropBlack").toBool();
   }
-  if(settings.contains("cacheWheels")) {
-    config.cacheWheels = settings.value("cacheWheels").toBool();
+  if(settings.contains("cacheLogos")) {
+    config.cacheLogos = settings.value("cacheLogos").toBool();
   }
   if(settings.contains("cacheMarquees")) {
     config.cacheMarquees = settings.value("cacheMarquees").toBool();
+  }
+  if(settings.contains("cacheSteamgrids")) {
+    config.cacheSteamgrids = settings.value("cacheSteamgrids").toBool();
+  }
+  if(settings.contains("cacheHeroes")) {
+    config.cacheHeroes = settings.value("cacheHeroes").toBool();
   }
   if(settings.contains("importFolder")) {
     config.importFolder = settings.value("importFolder").toString();
@@ -1039,13 +1063,7 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   settings.endGroup();
 
   // Check for command line scraping module here
-  if(parser.isSet("s") && (parser.value("s") == "openretro" ||
-			   parser.value("s") == "thegamesdb" ||
-			   parser.value("s") == "arcadedb" ||
-			   parser.value("s") == "worldofspectrum" ||
-			   parser.value("s") == "igdb" ||
-			   parser.value("s") == "mobygames" ||
-			   parser.value("s") == "screenscraper" ||
+  if(parser.isSet("s") && (parser.value("s") == "screenscraper" ||
 			   parser.value("s") == "esgamelist" ||
 			   parser.value("s") == "cache" ||
 			   parser.value("s") == "import")) {
@@ -1175,11 +1193,17 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   if(settings.contains("cacheScreenshots")) {
     config.cacheScreenshots = settings.value("cacheScreenshots").toBool();
   }
-  if(settings.contains("cacheWheels")) {
-    config.cacheWheels = settings.value("cacheWheels").toBool();
+  if(settings.contains("cacheLogos")) {
+    config.cacheLogos = settings.value("cacheLogos").toBool();
   }
   if(settings.contains("cacheMarquees")) {
     config.cacheMarquees = settings.value("cacheMarquees").toBool();
+  }
+  if(settings.contains("cacheSteamgrids")) {
+    config.cacheSteamgrids = settings.value("cacheSteamgrids").toBool();
+  }
+  if(settings.contains("cacheHeroes")) {
+    config.cacheHeroes = settings.value("cacheHeroes").toBool();
   }
   if(settings.contains("videos")) {
     config.videos = settings.value("videos").toBool();
@@ -1249,18 +1273,22 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
       printf("  \033[1;33mnocropblack\033[0m: Disables cropping away black borders around screenshot resources when compositing the final gamelist artwork.\n");
       printf("  \033[1;33mnohints\033[0m: Disables the 'DID YOU KNOW:' hints when running Skyscraper.\n");
       printf("  \033[1;33mnomarquees\033[0m: Disable marquees from being cached locally. Only do this if you do not plan to use the marquee artwork in 'artwork.xml'\n");
+      printf("  \033[1;33mnosteamgrids\033[0m: Disable steamgrids from being cached locally. Only do this if you do not plan to use the steamgrid artwork in 'artwork.xml'\n");
+      printf("  \033[1;33mnoheroes\033[0m: Disable heroes from being cached locally. Only do this if you do not plan to use the hero artwork in 'artwork.xml'\n");
       printf("  \033[1;33mnoresize\033[0m: Disable resizing of artwork when saving it to the resource cache. Normally they are resized to save space.\n");
       printf("  \033[1;33mnoscreenshots\033[0m: Disable screenshots/snaps from being cached locally. Only do this if you do not plan to use the screenshot artwork in 'artwork.xml'\n");
       printf("  \033[1;33mnosubdirs\033[0m: Do not include input folder subdirectories when scraping.\n");
-      printf("  \033[1;33mnowheels\033[0m: Disable wheels from being cached locally. Only do this if you do not plan to use the wheel artwork in 'artwork.xml'\n");
+      printf("  \033[1;33mnologos\033[0m: Disable logos from being cached locally. Only do this if you do not plan to use the wheel artwork in 'artwork.xml'\n");
       printf("  \033[1;33monlymissing\033[0m: Tells Skyscraper to skip all files which already have any data from any source in the cache.\n");
       printf("  \033[1;33mpretend\033[0m: Only relevant when generating a game list. It disables the game list generator and artwork compositor and only outputs the results of the potential game list generation to the terminal. Use it to check what and how the data will be combined from cached resources.\n");
       printf("  \033[1;33mrelative\033[0m: Forces all gamelist paths to be relative to rom location.\n");
       printf("  \033[1;33mskipexistingcovers\033[0m: When generating gamelists, skip processing covers that already exist in the media output folder.\n");
       printf("  \033[1;33mskipexistingmarquees\033[0m: When generating gamelists, skip processing marquees that already exist in the media output folder.\n");
+      printf("  \033[1;33mskipexistingsteamgrids\033[0m: When generating gamelists, skip processing steamgrids that already exist in the media output folder.\n");
+      printf("  \033[1;33mskipexistingheroes\033[0m: When generating gamelists, skip processing heroes that already exist in the media output folder.\n");
       printf("  \033[1;33mskipexistingscreenshots\033[0m: When generating gamelists, skip processing screenshots that already exist in the media output folder.\n");
       printf("  \033[1;33mskipexistingvideos\033[0m: When generating gamelists, skip copying videos that already exist in the media output folder.\n");
-      printf("  \033[1;33mskipexistingwheels\033[0m: When generating gamelists, skip processing wheels that already exist in the media output folder.\n");
+      printf("  \033[1;33mskipexistinglogos\033[0m: When generating gamelists, skip processing logos that already exist in the media output folder.\n");
       printf("  \033[1;33mskipped\033[0m: When generating a gamelist, also include games that do not have any cached data.\n");
       printf("  \033[1;33msymlink\033[0m: Forces cached videos to be symlinked to game list destination to save space. WARNING! Deleting or moving files from your cache can invalidate the links!\n");
       printf("  \033[1;33mtheinfront\033[0m: Forces Skyscraper to always try and move 'The' to the beginning of the game title when generating gamelists. By default 'The' will be moved to the end of the game titles.\n");
@@ -1294,7 +1322,7 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
 	} else if(flag == "nosubdirs") {
 	  config.subdirs = false;
 	} else if(flag == "nowheels") {
-	  config.cacheWheels = false;
+	  config.cacheLogos = false;
 	} else if(flag == "onlymissing") {
 	  config.onlyMissing = true;
 	} else if(flag == "pretend") {
@@ -1305,12 +1333,16 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
 	  config.skipExistingCovers = true;
 	} else if(flag == "skipexistingmarquees") {
 	  config.skipExistingMarquees = true;
+    } else if(flag == "skipexistingsteamgrids") {
+	  config.skipExistingSteamgrids = true;
+    } else if(flag == "skipexistingheroes") {
+	  config.skipExistingHeroes = true;
 	} else if(flag == "skipexistingscreenshots") {
 	  config.skipExistingScreenshots = true;
 	} else if(flag == "skipexistingvideos") {
 	  config.skipExistingVideos = true;
-	} else if(flag == "skipexistingwheels") {
-	  config.skipExistingWheels = true;
+	} else if(flag == "skipexistinglogos") {
+	  config.skipExistingLogos = true;
 	} else if(flag == "skipped") {
 	  config.skipped = true;
 	} else if(flag == "symlink") {
@@ -1347,11 +1379,17 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   if(parser.isSet("noscreenshots")) {
     config.cacheScreenshots = false;
   }
-  if(parser.isSet("nowheels")) {
-    config.cacheWheels = false;
+  if(parser.isSet("nologos")) {
+    config.cacheLogos = false;
   }
   if(parser.isSet("nomarquees")) {
     config.cacheMarquees = false;
+  }
+  if(parser.isSet("nosteamgrids")) {
+    config.cacheSteamgrids = false;
+  }
+  if(parser.isSet("noheroes")) {
+    config.cacheHeroes = false;
   }
   if(parser.isSet("skipexistingcovers")) {
     config.skipExistingCovers = true;
@@ -1359,11 +1397,17 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   if(parser.isSet("skipexistingscreenshots")) {
     config.skipExistingScreenshots = true;
   }
-  if(parser.isSet("skipexistingwheels")) {
-    config.skipExistingWheels = true;
+  if(parser.isSet("skipexistinglogos")) {
+    config.skipExistingLogos = true;
   }
   if(parser.isSet("skipexistingmarquees")) {
     config.skipExistingMarquees = true;
+  }
+  if(parser.isSet("skipexistingsteamgrids")) {
+    config.skipExistingSteamgrids = true;
+  }
+  if(parser.isSet("skipexistingheroes")) {
+    config.skipExistingHeroes = true;
   }
   if(parser.isSet("skipped")) {
     config.skipped = true;
@@ -1483,8 +1527,10 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   }
   config.coversFolder = frontend->getCoversFolder();
   config.screenshotsFolder = frontend->getScreenshotsFolder();
-  config.wheelsFolder = frontend->getWheelsFolder();
+  config.logosFolder = frontend->getWheelsFolder();
   config.marqueesFolder = frontend->getMarqueesFolder();
+  config.steamgridsFolder = frontend->getSteamgridsFolder();
+  config.heroesFolder = frontend->getHeroesFolder();
   config.videosFolder = frontend->getVideosFolder();
 
   // Choose default scraper for chosen platform if none has been set yet
@@ -1502,7 +1548,6 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   // We know these results are always accurate
   if(config.minMatchSet == false && (config.scraper == "cache" ||
 				     config.scraper == "screenscraper" ||
-				     config.scraper == "arcadedb" ||
 				     config.scraper == "esgamelist" ||
 				     config.scraper == "import")) {
     config.minMatch = 0;
@@ -1575,7 +1620,6 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
   if(config.interactive) {
     if(config.scraper == "cache" ||
        config.scraper == "import" ||
-       config.scraper == "arcadedb" ||
        config.scraper == "esgamelist" ||
        config.scraper == "screenscraper") {
       config.interactive = false;

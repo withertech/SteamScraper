@@ -162,8 +162,10 @@ int main(int argc, char *argv[])
   skyDir.mkpath("import/textual");
   skyDir.mkpath("import/screenshots");
   skyDir.mkpath("import/covers");
-  skyDir.mkpath("import/wheels");
+  skyDir.mkpath("import/logos");
   skyDir.mkpath("import/marquees");
+  skyDir.mkpath("import/steamgrids");
+  skyDir.mkpath("import/heroes");
   skyDir.mkpath("import/videos");
 
   // Create resources folder
@@ -203,7 +205,7 @@ int main(int argc, char *argv[])
   QCommandLineOption iOption("i", "Folder which contains the game/rom files.\n(default is '/home/USER/RetroPie/roms/PLATFORM')", "PATH", "");
   QCommandLineOption gOption("g", "Game list export folder.\n(default depends on frontend)", "PATH", "");
   QCommandLineOption oOption("o", "Game media export folder.\n(default depends on frontend)", "PATH", "");
-  QCommandLineOption sOption("s", "The scraping module you wish to gather resources from for the platform set with '-p'.\nLeave the '-s' option out to enable Skyscraper's gamelist generation mode.\n(WEB: 'arcadedb', 'igdb', 'mobygames', 'openretro', 'screenscraper', 'thegamesdb' and 'worldofspectrum', LOCAL: 'esgamelist' and 'import')", "MODULE", "");
+  QCommandLineOption sOption("s", "The scraping module you wish to gather resources from for the platform set with '-p'.\nLeave the '-s' option out to enable Skyscraper's gamelist generation mode.\n(WEB: 'screenscraper', LOCAL: 'esgamelist' and 'import')", "MODULE", "");
   QCommandLineOption uOption("u", "userKey or UserID and Password for use with the selected scraping module.\n(Default is none)", "KEY/USER:PASSWORD", "");
   QCommandLineOption mOption("m", "Minimum match percentage when comparing search result titles to filename titles.\n(default is 65)", "0-100", "");
   QCommandLineOption lOption("l", "Maximum game description length. Everything longer than this will be truncated.\n(default is 2500)", "0-10000", "");

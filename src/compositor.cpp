@@ -310,10 +310,10 @@ void Compositor::saveAll(GameEntry &game, QString completeBaseName)
 	game.screenshotFile = filename;
 	continue;
       }
-    } else if(output.resType == "wheel") {
-      filename.prepend(config->wheelsFolder);
-      if(config->skipExistingWheels && QFileInfo::exists(filename)) {
-	game.wheelFile = filename;
+    } else if(output.resType == "logo") {
+      filename.prepend(config->logosFolder);
+      if(config->skipExistingLogos && QFileInfo::exists(filename)) {
+	game.logoFile = filename;
 	continue;
       }
     } else if(output.resType == "marquee") {
@@ -322,16 +322,32 @@ void Compositor::saveAll(GameEntry &game, QString completeBaseName)
 	game.marqueeFile = filename;
 	continue;
       }
+    } else if(output.resType == "steamgrid") {
+      filename.prepend(config->steamgridsFolder);
+      if(config->skipExistingSteamgrids && QFileInfo::exists(filename)) {
+	game.steamgridFile = filename;
+	continue;
+      }
+    } else if(output.resType == "hero") {
+      filename.prepend(config->heroesFolder);
+      if(config->skipExistingHeroes && QFileInfo::exists(filename)) {
+	game.heroFile = filename;
+	continue;
+      }
     }
 
     if(output.resource == "cover") {
       output.setCanvas(QImage::fromData(game.coverData));
     } else if(output.resource == "screenshot") {
       output.setCanvas(QImage::fromData(game.screenshotData));
-    } else if(output.resource == "wheel") {
-      output.setCanvas(QImage::fromData(game.wheelData));
+    } else if(output.resource == "logo") {
+      output.setCanvas(QImage::fromData(game.logoData));
     } else if(output.resource == "marquee") {
       output.setCanvas(QImage::fromData(game.marqueeData));
+    } else if(output.resource == "steamgrid") {
+      output.setCanvas(QImage::fromData(game.steamgridData));
+    } else if(output.resource == "hero") {
+      output.setCanvas(QImage::fromData(game.heroData));
     }
 
     if(output.canvas.isNull() && output.hasLayers()) {
@@ -353,10 +369,14 @@ void Compositor::saveAll(GameEntry &game, QString completeBaseName)
       game.coverFile = filename;
     } else if(output.resType == "screenshot" && output.save(filename)) {
       game.screenshotFile = filename;
-    } else if(output.resType == "wheel" && output.save(filename)) {
-      game.wheelFile = filename;
+    } else if(output.resType == "logo" && output.save(filename)) {
+      game.logoFile = filename;
     } else if(output.resType == "marquee" && output.save(filename)) {
       game.marqueeFile = filename;
+    } else if(output.resType == "steamgrid" && output.save(filename)) {
+      game.steamgridFile = filename;
+    } else if(output.resType == "hero" && output.save(filename)) {
+      game.heroFile = filename;
     }
   }
 }
@@ -375,10 +395,14 @@ void Compositor::processChildLayers(GameEntry &game, Layer &layer)
 	thisLayer.setCanvas(QImage::fromData(game.coverData));
       } else if(thisLayer.resource == "screenshot") {
 	  thisLayer.setCanvas(QImage::fromData(game.screenshotData));
-      } else if(thisLayer.resource == "wheel") {
-	  thisLayer.setCanvas(QImage::fromData(game.wheelData));
+      } else if(thisLayer.resource == "logo") {
+	  thisLayer.setCanvas(QImage::fromData(game.logoData));
       } else if(thisLayer.resource == "marquee") {
 	  thisLayer.setCanvas(QImage::fromData(game.marqueeData));
+      } else if(thisLayer.resource == "steamgrid") {
+	  thisLayer.setCanvas(QImage::fromData(game.steamgridData));
+      } else if(thisLayer.resource == "hero") {
+	  thisLayer.setCanvas(QImage::fromData(game.heroData));
       } else {
 	thisLayer.setCanvas(config->resources[thisLayer.resource]);
       }

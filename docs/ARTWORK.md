@@ -24,10 +24,10 @@ An example could look something like this:
       <stroke width="5"/>
     </layer>
     <layer resource="cover" height="250" x="0" y="-10" valign="bottom">
-      <gamebox side="wheel" rotate="90"/>
+      <gamebox side="logo" rotate="90"/>
       <shadow distance="5" softness="5" opacity="70"/>
     </layer>
-    <layer resource="wheel" width="250" x="-10" align="right">
+    <layer resource="logo" width="250" x="-10" align="right">
       <shadow distance="5" softness="5" opacity="70"/>
     </layer>
   </output>
@@ -62,7 +62,7 @@ This node is the document base node. It contains all other nodes. Don't change o
 
 ### 'output' node(s) (Optional)
 ```
-<output type="screenshot" resource="wheel" mpixels="0.1" width="640" height="400">
+<output type="screenshot" resource="logo" mpixels="0.1" width="640" height="400">
 ...
 <output>
 ```
@@ -74,19 +74,23 @@ An output node with no nested 'layer' nodes will export the type with no composi
 The type to be exported. Can be:
 * screenshot
 * cover
-* wheel
+* logo
 * marquee
+* steamgrid
+* hero
 
 #### 'resource' attribute [from v2.7.6] (Optional)
 The resource attribute can be set to one of the following:
 * screenshot
 * cover
-* wheel
+* logo
 * marquee
+* steamgrid
+* hero
 
-For instance, if you wish to export a 'marquee' image but want it to make use of the 'wheel' resource instead, you can set ```<output type="marquee" resource="wheel"/>```. It will then export a 'marquee' but use the raw unmanipulated 'wheel' image when doing so. So if your frontend theme, such as some EmulationStation themes, makes use of the 'marquee' artwork, it will then be using the 'wheel' for it. If this attribute is left out, 'resource' will be set to the same as 'type'.
+For instance, if you wish to export a 'marquee' image but want it to make use of the 'logo' resource instead, you can set ```<output type="marquee" resource="logo"/>```. It will then export a 'marquee' but use the raw unmanipulated 'wheel' image when doing so. So if your frontend theme, such as some EmulationStation themes, makes use of the 'marquee' artwork, it will then be using the 'wheel' for it. If this attribute is left out, 'resource' will be set to the same as 'type'.
 
-NOTE! The `screenshot`, `cover`, `wheel` and `marquee` types are hardcoded. It's not currently possible to create custom types.
+NOTE! The `screenshot`, `cover`, `logo`, `marquee`, `steamgrid` and `hero` types are hardcoded. It's not currently possible to create custom types.
 
 #### 'mpixels' attribute [from v2.7.8] (Optional)
 Set the desired area size for the image resource in mpixels (eg '0.1'). This can be used as an alternative to setting width or height and is useful in cases where images vary a lot in size. 'width' and 'height' attributes will be ignored if this is set.
@@ -108,8 +112,10 @@ NOTE!!! Layer and effect nodes are rendered from top to bottom.
 The artwork resource to be used by the layer. It can be:
 * screenshot
 * cover
-* wheel
+* logo
 * marquee
+* steamgrid
+* hero
 
 If the resource attribute is left out the layer will simply be transparent. This is useful when aligning nested layers that differ in size across games.
 

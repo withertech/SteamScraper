@@ -68,8 +68,10 @@ protected:
   virtual void getReleaseDate(GameEntry &game);
   virtual void getCover(GameEntry &game);
   virtual void getScreenshot(GameEntry &game);
-  virtual void getWheel(GameEntry &game);
+  virtual void getLogo(GameEntry &game);
   virtual void getMarquee(GameEntry &game);
+  virtual void getSteamgrid(GameEntry &game);
+  virtual void getHero(GameEntry &game);
   virtual void getVideo(GameEntry &game);
 
   virtual void nomNom(const QString nom, bool including = true);
@@ -120,6 +122,10 @@ protected:
   QString wheelPost;
   QList<QString> marqueePre;
   QString marqueePost;
+  QList<QString> steamgridPre;
+  QString steamgridPost;
+  QList<QString> heroPre;
+  QString heroPost;
   QList<QString> videoPre;
   QString videoPost;
 

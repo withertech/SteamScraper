@@ -120,11 +120,17 @@ void AbstractScraper::getGameData(GameEntry &game)
     case SCREENSHOT:
       getScreenshot(game);
       break;
-    case WHEEL:
-      getWheel(game);
+    case LOGO:
+      getLogo(game);
       break;
     case MARQUEE:
       getMarquee(game);
+      break;
+    case STEAMGRID:
+      getSteamgrid(game);
+      break;
+    case HERO:
+      getHero(game);
       break;
     case VIDEO:
       if(config->videos) {
@@ -327,7 +333,7 @@ void AbstractScraper::getScreenshot(GameEntry &game)
   }
 }
 
-void AbstractScraper::getWheel(GameEntry &game)
+void AbstractScraper::getLogo(GameEntry &game)
 {
   if(wheelPre.isEmpty()) {
     return;
@@ -340,16 +346,16 @@ void AbstractScraper::getWheel(GameEntry &game)
   for(const auto &nom: wheelPre) {
     nomNom(nom);
   }
-  QString wheelUrl = data.left(data.indexOf(wheelPost.toUtf8())).replace("&amp;", "&");
-  if(wheelUrl.left(4) != "http") {
-    wheelUrl.prepend(baseUrl + (wheelUrl.left(1) == "/"?"":"/"));
+  QString logoUrl = data.left(data.indexOf(wheelPost.toUtf8())).replace("&amp;", "&");
+  if(logoUrl.left(4) != "http") {
+    logoUrl.prepend(baseUrl + (logoUrl.left(1) == "/" ? "" : "/"));
   }
-  netComm->request(wheelUrl);
+  netComm->request(logoUrl);
   q.exec();
   QImage image;
   if(netComm->getError() == QNetworkReply::NoError &&
      image.loadFromData(netComm->getData())) {
-    game.wheelData = netComm->getData();
+    game.logoData = netComm->getData();
   }
 }
 
@@ -377,6 +383,58 @@ void AbstractScraper::getMarquee(GameEntry &game)
      image.loadFromData(netComm->getData())) {
     game.marqueeData = netComm->getData();
   }
+}
+
+void AbstractScraper::getSteamgrid(GameEntry &game)
+{
+    if(steamgridPre.isEmpty()) {
+        return;
+    }
+    for(const auto &nom: steamgridPre) {
+        if(!checkNom(nom)) {
+            return;
+        }
+    }
+    for(const auto &nom: steamgridPre) {
+        nomNom(nom);
+    }
+    QString steamgridUrl = data.left(data.indexOf(steamgridPost.toUtf8())).replace("&amp;", "&");
+    if(steamgridUrl.left(4) != "http") {
+        steamgridUrl.prepend(baseUrl + (steamgridUrl.left(1) == "/" ? "" : "/"));
+    }
+    netComm->request(steamgridUrl);
+    q.exec();
+    QImage image;
+    if(netComm->getError() == QNetworkReply::NoError &&
+       image.loadFromData(netComm->getData())) {
+        game.steamgridData = netComm->getData();
+    }
+}
+
+void AbstractScraper::getHero(GameEntry &game)
+{
+    if(heroPre.isEmpty()) {
+        return;
+    }
+    for(const auto &nom: heroPre) {
+        if(!checkNom(nom)) {
+            return;
+        }
+    }
+    for(const auto &nom: heroPre) {
+        nomNom(nom);
+    }
+    QString heroUrl = data.left(data.indexOf(heroPost.toUtf8())).replace("&amp;", "&");
+    if(heroUrl.left(4) != "http") {
+        heroUrl.prepend(baseUrl + (heroUrl.left(1) == "/" ? "" : "/"));
+    }
+    netComm->request(heroUrl);
+    q.exec();
+    QImage image;
+    if(netComm->getError() == QNetworkReply::NoError &&
+       image.loadFromData(netComm->getData())) {
+        game.heroData = netComm->getData();
+    }
 }
 
 void AbstractScraper::getVideo(GameEntry &game)

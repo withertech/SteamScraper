@@ -46,6 +46,8 @@ public:
   QString getScreenshotsFolder() override;
   QString getWheelsFolder() override;
   QString getMarqueesFolder() override;
+  QString getSteamgridsFolder() override;
+  QString getHeroesFolder() override;
   QString getVideosFolder() override;
 
 };

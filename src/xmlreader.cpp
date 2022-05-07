@@ -75,6 +75,8 @@ void XmlReader::addEntries(const QDomNodeList &nodes, QList<GameEntry> &gameEntr
     entry.coverFile = makeAbsolute(nodes.at(a).firstChildElement("cover").text(), inputFolder);
     entry.screenshotFile = makeAbsolute(nodes.at(a).firstChildElement("image").text(), inputFolder);
     entry.marqueeFile = makeAbsolute(nodes.at(a).firstChildElement("marquee").text(), inputFolder);
+    entry.steamgridFile = makeAbsolute(nodes.at(a).firstChildElement("steamgrid").text(), inputFolder);
+    entry.heroFile = makeAbsolute(nodes.at(a).firstChildElement("hero").text(), inputFolder);
     entry.videoFile = makeAbsolute(nodes.at(a).firstChildElement("video").text(), inputFolder);
     if(!entry.videoFile.isEmpty()) {
       entry.videoFormat = "fromxml";

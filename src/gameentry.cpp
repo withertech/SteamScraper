@@ -49,10 +49,16 @@ void GameEntry::calculateCompleteness(bool videoEnabled)
   if(screenshotData.isNull()) {
     completeness -= valuePerType;
   }
-  if(wheelData.isNull()) {
+  if(logoData.isNull()) {
     completeness -= valuePerType;
   }
   if(marqueeData.isNull()) {
+    completeness -= valuePerType;
+  }
+  if(steamgridData.isNull()) {
+    completeness -= valuePerType;
+  }
+  if(heroData.isNull()) {
     completeness -= valuePerType;
   }
   if(description.isEmpty()) {
@@ -93,7 +99,9 @@ void GameEntry::resetMedia()
 {
   coverData = QByteArray();
   screenshotData = QByteArray();
-  wheelData = QByteArray();
+  logoData = QByteArray();
   marqueeData = QByteArray();
+  steamgridData = QByteArray();
+  heroData = QByteArray();
   videoData = "";
 }

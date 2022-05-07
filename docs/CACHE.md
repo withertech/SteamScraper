@@ -64,9 +64,13 @@ Game rating, number between 0 and 1
 A cover image filename for a game (file exists in `covers` subfolder)
 ##### screenshot
 A screenshot image filename for a game (file exists in `screenshots` subfolder)
-##### wheel
-A wheel image filename for a game (file exists in `wheels` subfolder)
+##### logo
+A logo image filename for a game (file exists in `logos` subfolder)
 ##### marquee
 A marquee image filename for a game (file exists in `marquees` subfolder)
+##### steamgrid
+A steamgrid image filename for a game (file exists in `steamgrids` subfolder)
+##### hero
+A hero image filename for a game (file exists in `heroes` subfolder)
 ##### video
 A video file filename for a game (file exists in `videos` subfolder)

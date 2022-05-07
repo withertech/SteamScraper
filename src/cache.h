@@ -59,8 +59,10 @@ struct ResCounts {
   int releaseDates;
   int covers;
   int screenshots;
-  int wheels;
+  int logos;
   int marquees;
+  int steamgrids;
+  int heroes;
   int videos;
 };
 

@@ -193,6 +193,10 @@ Disables cropping away the black borders around screenshot resources when compos
 Disables the "Did you know" hints when running Skyscraper. Consider setting this in [`config.ini`](CONFIGINI.md#hintsfalse) instead.
 #### nomarquees
 Disables the caching of the resource type `marquee` when scraping with any module. If you never use marquees in your artwork configuration, this flag can save you some space. Consider setting this in [`config.ini`](CONFIGINI.md#cachemarqueestrue) instead.
+#### nosteamgrids
+Disables the caching of the resource type `steamgrid` when scraping with any module. If you never use steamgrids in your artwork configuration, this flag can save you some space. Consider setting this in [`config.ini`](CONFIGINI.md#cachesteamgridstrue) instead.
+#### noheroes
+Disables the caching of the resource type `hero` when scraping with any module. If you never use heroes in your artwork configuration, this flag can save you some space. Consider setting this in [`config.ini`](CONFIGINI.md#cacheheroestrue) instead.
 #### noresize
 By default, to save space, Skyscraper resizes large pieces of artwork before adding them to the resource cache. Adding this flag will disable this and save the artwork files exactly as they are retrieved from the scraping module. Consider setting this in [`config.ini`](CONFIGINI.md#cacheresizefalse) instead.
 
@@ -201,8 +205,8 @@ NOTE! This is not related to the artwork compositing that happens when generatin
 Disables the caching of the resource type `screenshot` when scraping with any module. If you never use screenshots in your artwork configuration, this flag can save you some space. Consider setting this in [`config.ini`](CONFIGINI.md#cachescreenshotstrue) instead.
 #### nosubdirs
 By default Skyscraper will include roms located in subfolders. By adding this flag Skyscraper will only scrape the roms located directly in the input folder. See `-i <PATH>` above to read more about the rom input folder. Consider setting this in [`config.ini`](CONFIGINI.md#subdirstrue) instead.
-#### nowheels
-Disables the caching of the resource type `wheel` when scraping with any module. If you never use wheels in your artwork configuration, this flag can save you some space. Consider setting this in [`config.ini`](CONFIGINI.md#cachewheelstrue) instead.
+#### nologos
+Disables the caching of the resource type `logo` when scraping with any module. If you never use logos in your artwork configuration, this flag can save you some space. Consider setting this in [`config.ini`](CONFIGINI.md#cachewheelstrue) instead.
 #### onlymissing
 This flag tells Skyscraper to skip all files which already have any piece of data from any source in the cache. This is useful if you just scraped almost all files from a platform succesfully with one source, and then want to only scrape the remaining games with a different source to fill in the holes. Normally Skyscraper will scrape all files again with the second source.
 #### pretend
@@ -213,12 +217,16 @@ Only relevant when generating an EmulationStation game list (which is the defaul
 When generating gamelists, skip processing covers that already exist in the media output folder.
 #### skipexistingmarquees
 When generating gamelists, skip processing marquees that already exist in the media output folder.
+#### skipexistingsteamgrids
+When generating gamelists, skip processing steamgrids that already exist in the media output folder.
+#### skipexistingheroes
+When generating gamelists, skip processing heroes that already exist in the media output folder.
 #### skipexistingscreenshots
 When generating gamelists, skip processing screenshots that already exist in the media output folder.
 #### skipexistingvideos
 When generating gamelists, skip copying videos that already exist in the media output folder.
-#### skipexistingwheels
-When generating gamelists, skip processing wheels that already exist in the media output folder.
+#### skipexistinglogos
+When generating gamelists, skip processing logos that already exist in the media output folder.
 #### skipped
 If a rom has no resources attached to it in the cache, it will be left out when generating a game list file. It will still show up in the frontend (at least it does for EmulationStation) but it won't exist in the game list file. You can safely leave out this flag unless you need the empty entries for some reason. Consider setting this in [`config.ini`](CONFIGINI.md#skippedfalse) instead.
 #### symlink

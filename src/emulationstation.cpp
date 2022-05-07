@@ -291,12 +291,22 @@ QString EmulationStation::getScreenshotsFolder()
 
 QString EmulationStation::getWheelsFolder()
 {
-  return config->mediaFolder + "/wheels";
+  return config->mediaFolder + "/logos";
 }
 
 QString EmulationStation::getMarqueesFolder()
 {
   return config->mediaFolder + "/marquees";
+}
+
+QString EmulationStation::getSteamgridsFolder()
+{
+    return config->mediaFolder + "/steamgrids";
+}
+
+QString EmulationStation::getHeroesFolder()
+{
+    return config->mediaFolder + "/heroes";
 }
 
 QString EmulationStation::getVideosFolder()

@@ -60,8 +60,9 @@ private:
 
   void getCover(GameEntry &game) override;
   void getScreenshot(GameEntry &game) override;
-  void getWheel(GameEntry &game) override;
+  void getLogo(GameEntry &game) override;
   void getMarquee(GameEntry &game) override;
+  void getSteamgrid(GameEntry &game) override;
   void getVideo(GameEntry &game) override;
 
   QString getJsonText(QJsonArray array, int attr, QList<QString> types = QList<QString>());
