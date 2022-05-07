@@ -604,7 +604,6 @@ QString ScreenScraper::getJsonText(QJsonArray jsonArr, int attr, QList<QString> 
                     for (const auto &jsonVal: jsonArr) {
                         if ((jsonVal.toObject()["region"].isNull() || jsonVal.toObject()["region"].toString() == region) &&
                             jsonVal.toObject()["type"].toString() == type) {
-                            if (types.contains(QString("steamgrid")))
                             if (jsonVal.toObject()["url"].isString()) {
                                 return jsonVal.toObject()["url"].toString();
                             } else {

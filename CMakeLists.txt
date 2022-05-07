@@ -45,9 +45,9 @@ set ( SteamScraper_SRCS
 	src/emulationstation.cpp
 	src/attractmode.cpp
 	src/pegasus.cpp
-		src/screenscraper.cpp
+	src/screenscraper.cpp
 	src/crc32.cpp
-        src/scripter.cpp
+	src/scripter.cpp
 	src/platform.cpp
 	src/layer.cpp
 	src/fxshadow.cpp
@@ -84,8 +84,8 @@ set ( SteamScraper_MOCS
 	src/emulationstation.h
 	src/attractmode.h
 	src/pegasus.h
-		src/screenscraper.h
-        src/scripter.h
+	src/screenscraper.h
+	src/scripter.h
 	src/platform.h
 	src/fxshadow.h
 	src/fxblur.h
@@ -108,3 +108,4 @@ QT5_WRAP_CPP(MOCS ${SteamScraper_MOCS})
 
 add_executable ( SteamScraper ${SteamScraper_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
 target_link_libraries ( SteamScraper  Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Xml )
+install(TARGETS SteamScraper DESTINATION bin)
