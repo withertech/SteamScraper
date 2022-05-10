@@ -32,12 +32,12 @@
 
 class FxRotate : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxRotate();
-  QImage applyEffect(const QImage &src, const Layer &layer);
+	FxRotate();
 
+	QImage applyEffect(const QImage &src, const Layer &layer);
 };
 
-#endif // FXROTATE_H
+#endif// FXROTATE_H

@@ -33,83 +33,94 @@ Queue::Queue()
 
 bool Queue::hasEntry()
 {
-  queueMutex.lock();
-  if(isEmpty()) {
-    queueMutex.unlock();
-    return false;
-  }
-  return true;
+	queueMutex.lock();
+	if (isEmpty())
+	{
+		queueMutex.unlock();
+		return false;
+	}
+	return true;
 }
 
 QFileInfo Queue::takeEntry()
 {
-  QFileInfo info = first();
-  removeFirst();
-  queueMutex.unlock();
-  return info;
+	QFileInfo info = first();
+	removeFirst();
+	queueMutex.unlock();
+	return info;
 }
 
 void Queue::clearAll()
 {
-  queueMutex.lock();
-  clear();
-  queueMutex.unlock();
+	queueMutex.lock();
+	clear();
+	queueMutex.unlock();
 }
 
 void Queue::filterFiles(const QString &patterns, const bool &include)
 {
-  QList<QString> regExpPatterns = getRegExpPatterns(patterns);
+	QList<QString> regExpPatterns = getRegExpPatterns(patterns);
 
-  queueMutex.lock();
-  QMutableListIterator<QFileInfo> it(*this);
-  while(it.hasNext()) {
-    QFileInfo info = it.next();
-    bool match = false;
-    for(const auto &regExpPattern: regExpPatterns) {
-      if(QRegularExpression(regExpPattern).match(info.fileName()).hasMatch()) {
-	match = true;
-      }
-    }
-    if(match && !include) {
-      it.remove();
-    } else if(!match && include) {
-      it.remove();
-    }
-  }
-  queueMutex.unlock();
+	queueMutex.lock();
+	QMutableListIterator<QFileInfo> it(*this);
+	while (it.hasNext())
+	{
+		QFileInfo info = it.next();
+		bool match = false;
+		for (const auto &regExpPattern: regExpPatterns)
+		{
+			if (QRegularExpression(regExpPattern).match(info.fileName()).hasMatch())
+			{
+				match = true;
+			}
+		}
+		if (match && !include)
+		{
+			it.remove();
+		}
+		else if (!match && include)
+		{
+			it.remove();
+		}
+	}
+	queueMutex.unlock();
 }
 
 void Queue::removeFiles(const QList<QString> &files)
 {
-  queueMutex.lock();
-  QMutableListIterator<QFileInfo> it(*this);
-  while(it.hasNext()) {
-    QFileInfo info = it.next();
-    for(const auto &file: files) {
-      if(info.absoluteFilePath() == file) {
-	it.remove();
-	break;
-      }
-    }
-  }
-  queueMutex.unlock();
+	queueMutex.lock();
+	QMutableListIterator<QFileInfo> it(*this);
+	while (it.hasNext())
+	{
+		QFileInfo info = it.next();
+		for (const auto &file: files)
+		{
+			if (info.absoluteFilePath() == file)
+			{
+				it.remove();
+				break;
+			}
+		}
+	}
+	queueMutex.unlock();
 }
 
 QList<QString> Queue::getRegExpPatterns(QString patterns)
 {
-  patterns.replace("\\,", "###COMMA###");
-  patterns.replace(",", ";");
+	patterns.replace("\\,", "###COMMA###");
+	patterns.replace(",", ";");
 
-  QList<QString> regExpPatterns;
+	QList<QString> regExpPatterns;
 
-  for(auto regExpPattern: patterns.split(";")) {
-    regExpPattern.replace("###COMMA###", ",");
-    regExpPattern = QRegularExpression::escape(regExpPattern);
-    regExpPattern.replace("\\*", ".*");
-    regExpPattern.prepend("^");
-    regExpPattern.append("$");
-    regExpPatterns.append(regExpPattern);
-  }
+	for (auto regExpPattern: patterns.split(";"))
+	{
+		regExpPattern.replace("###COMMA###", ",");
+		regExpPattern = QRegularExpression::escape(regExpPattern);
+		regExpPattern.replace("\\*", ".*");
+		regExpPattern.prepend("^");
+		regExpPattern.append("$");
+		regExpPatterns.append(regExpPattern);
+	}
 
-  return regExpPatterns;
+	return regExpPatterns;
 }

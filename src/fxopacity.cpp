@@ -23,8 +23,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
  */
 
-#include <cmath>
 #include <QPainter>
+#include <cmath>
 
 #include "fxopacity.h"
 
@@ -34,15 +34,15 @@ FxOpacity::FxOpacity()
 
 QImage FxOpacity::applyEffect(const QImage &src, const Layer &layer)
 {
-  double opacity = layer.opacity;
+	double opacity = layer.opacity;
 
-  QImage canvas(src.width(), src.height(), QImage::Format_ARGB32_Premultiplied);
-  canvas.fill(Qt::transparent);
-  QPainter painter;
-  painter.begin(&canvas);
-  painter.setOpacity(opacity / 100.0);
-  painter.drawImage(0, 0, src);
-  painter.end();
+	QImage canvas(src.width(), src.height(), QImage::Format_ARGB32_Premultiplied);
+	canvas.fill(Qt::transparent);
+	QPainter painter;
+	painter.begin(&canvas);
+	painter.setOpacity(opacity / 100.0);
+	painter.drawImage(0, 0, src);
+	painter.end();
 
-  return canvas;
+	return canvas;
 }

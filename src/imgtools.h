@@ -26,14 +26,13 @@
 #ifndef IMGTOOLS_H
 #define IMGTOOLS_H
 
-#include <QObject>
 #include <QImage>
+#include <QObject>
 
 class ImgTools : public QObject
 {
 public:
-  static QImage cropToFit(const QImage &image, bool cropBlack = false);
-
+	static QImage cropToFit(const QImage &image, bool cropBlack = false);
 };
 
-#endif // IMGTOOLS_H
+#endif// IMGTOOLS_H

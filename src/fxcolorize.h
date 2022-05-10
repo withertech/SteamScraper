@@ -32,15 +32,15 @@
 
 class FxColorize : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxColorize();
-  QImage applyEffect(const QImage &src, const Layer &layer);
+	FxColorize();
+
+	QImage applyEffect(const QImage &src, const Layer &layer);
 
 private:
-  int truncate(int value);
-
+	int truncate(int value);
 };
 
-#endif // FXCOLORIZE_H
+#endif// FXCOLORIZE_H

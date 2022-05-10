@@ -30,54 +30,72 @@
 
 class ImportScraper : public AbstractScraper
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  ImportScraper(Settings *config, QSharedPointer<NetManager> manager);
-  void runPasses(QList<GameEntry> &gameEntries, const QFileInfo &info, QString &, QString &) override;
-  void getGameData(GameEntry &game) override;
-  QString getCompareTitle(QFileInfo info) override;
-  void getTitle(GameEntry &game);
-  void getCover(GameEntry &game) override;
-  void getScreenshot(GameEntry &game) override;
-  void getLogo(GameEntry &game) override;
-  void getMarquee(GameEntry &game) override;
-  void getSteamgrid(GameEntry &game) override;
-  void getHero(GameEntry &game) override;
-  void getVideo(GameEntry &game) override;
+	ImportScraper(Settings *config, QSharedPointer<NetManager> manager);
+
+	void runPasses(QList<GameEntry> &gameEntries, const QFileInfo &info, QString &, QString &) override;
+
+	void getGameData(GameEntry &game) override;
+
+	QString getCompareTitle(QFileInfo info) override;
+
+	void getTitle(GameEntry &game);
+
+	void getCover(GameEntry &game) override;
+
+	void getScreenshot(GameEntry &game) override;
+
+	void getLogo(GameEntry &game) override;
+
+	void getMarquee(GameEntry &game) override;
+
+	void getSteamgrid(GameEntry &game) override;
+
+	void getIcon(GameEntry &game) override;
+
+	void getHero(GameEntry &game) override;
+
+	void getVideo(GameEntry &game) override;
 
 private:
-  bool checkType(QString baseName, QList<QFileInfo> &infos, QString &inputFile);
-  bool loadDefinitions();
-  void loadData();
-  void checkForTag(QList<QString> &pre, QString &post, QString &tag, QString &line);
+	bool checkType(QString baseName, QList<QFileInfo> &infos, QString &inputFile);
 
-  QString titleTag = "###TITLE###";
-  QString descriptionTag = "###DESCRIPTION###";
-  QString developerTag = "###DEVELOPER###";
-  QString publisherTag = "###PUBLISHER###";
-  QString playersTag = "###PLAYERS###";
-  QString agesTag = "###AGES###";
-  QString ratingTag = "###RATING###";
-  QString tagsTag = "###TAGS###";
-  QString releaseDateTag = "###RELEASEDATE###";
+	bool loadDefinitions();
 
-  QList<QFileInfo> textual;
-  QList<QFileInfo> covers;
-  QList<QFileInfo> screenshots;
-  QList<QFileInfo> logos;
-  QList<QFileInfo> marquees;
-  QList<QFileInfo> steamgrids;
-  QList<QFileInfo> heroes;
-  QList<QFileInfo> videos;
-  QString textualFile = "";
-  QString coverFile = "";
-  QString screenshotFile = "";
-  QString logoFile = "";
-  QString marqueeFile = "";
-  QString steamgridFile = "";
-  QString heroFile = "";
-  QString videoFile = "";
+	void loadData();
+
+	void checkForTag(QList<QString> &pre, QString &post, QString &tag, QString &line);
+
+	QString titleTag = "###TITLE###";
+	QString descriptionTag = "###DESCRIPTION###";
+	QString developerTag = "###DEVELOPER###";
+	QString publisherTag = "###PUBLISHER###";
+	QString playersTag = "###PLAYERS###";
+	QString agesTag = "###AGES###";
+	QString ratingTag = "###RATING###";
+	QString tagsTag = "###TAGS###";
+	QString releaseDateTag = "###RELEASEDATE###";
+
+	QList<QFileInfo> textual;
+	QList<QFileInfo> covers;
+	QList<QFileInfo> screenshots;
+	QList<QFileInfo> logos;
+	QList<QFileInfo> marquees;
+	QList<QFileInfo> steamgrids;
+	QList<QFileInfo> icons;
+	QList<QFileInfo> heroes;
+	QList<QFileInfo> videos;
+	QString textualFile = "";
+	QString coverFile = "";
+	QString screenshotFile = "";
+	QString logoFile = "";
+	QString marqueeFile = "";
+	QString steamgridFile = "";
+	QString iconFile = "";
+	QString heroFile = "";
+	QString videoFile = "";
 };
 
-#endif // IMPORTSCRAPER_H
+#endif// IMPORTSCRAPER_H

@@ -32,15 +32,15 @@
 
 class FxBalance : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxBalance();
-  QImage applyEffect(const QImage &src, const Layer &layer);
+	FxBalance();
+
+	QImage applyEffect(const QImage &src, const Layer &layer);
 
 private:
-  int truncate(int value);
-
+	int truncate(int value);
 };
 
-#endif // FXBALANCE_H
+#endif// FXBALANCE_H

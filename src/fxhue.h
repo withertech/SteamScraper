@@ -32,12 +32,12 @@
 
 class FxHue : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxHue();
-  QImage applyEffect(const QImage &src, const Layer &layer);
+	FxHue();
 
+	QImage applyEffect(const QImage &src, const Layer &layer);
 };
 
-#endif // FXHUE_H
+#endif// FXHUE_H

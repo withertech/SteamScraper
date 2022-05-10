@@ -23,8 +23,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
  */
 
-#include <cmath>
 #include <QPainter>
+#include <cmath>
 
 #include "fxrotate.h"
 
@@ -34,17 +34,20 @@ FxRotate::FxRotate()
 
 QImage FxRotate::applyEffect(const QImage &src, const Layer &layer)
 {
-  int angle = layer.delta;
+	int angle = layer.delta;
 
-  QTransform rotate;
-  rotate.rotate(angle, layer.axis);
-  if(layer.axis == Qt::YAxis) {
-  rotate.translate(0, - src.height() / 2.0);
-  } else if(layer.axis == Qt::XAxis) {
-    rotate.translate(- src.width() / 2.0, 0);
-  }
+	QTransform rotate;
+	rotate.rotate(angle, layer.axis);
+	if (layer.axis == Qt::YAxis)
+	{
+		rotate.translate(0, -src.height() / 2.0);
+	}
+	else if (layer.axis == Qt::XAxis)
+	{
+		rotate.translate(-src.width() / 2.0, 0);
+	}
 
-  QImage canvas = src.transformed(rotate, Qt::SmoothTransformation);
- 
-  return canvas;
+	QImage canvas = src.transformed(rotate, Qt::SmoothTransformation);
+
+	return canvas;
 }

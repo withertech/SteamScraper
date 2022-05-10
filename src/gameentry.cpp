@@ -31,77 +31,100 @@ GameEntry::GameEntry()
 
 void GameEntry::calculateCompleteness(bool videoEnabled)
 {
-  completeness = 100.0;
-  int noOfTypes = 13;
-  if(videoEnabled) {
-    noOfTypes += 1;
-  }
-  double valuePerType = completeness / (double)noOfTypes;
-  if(title.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(platform.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(coverData.isNull()) {
-    completeness -= valuePerType;
-  }
-  if(screenshotData.isNull()) {
-    completeness -= valuePerType;
-  }
-  if(logoData.isNull()) {
-    completeness -= valuePerType;
-  }
-  if(marqueeData.isNull()) {
-    completeness -= valuePerType;
-  }
-  if(steamgridData.isNull()) {
-    completeness -= valuePerType;
-  }
-  if(heroData.isNull()) {
-    completeness -= valuePerType;
-  }
-  if(description.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(releaseDate.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(developer.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(publisher.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(tags.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(rating.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(players.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(ages.isEmpty()) {
-    completeness -= valuePerType;
-  }
-  if(videoEnabled && videoFormat.isEmpty()) {
-    completeness -= valuePerType;
-  }
+	completeness = 100.0;
+	int noOfTypes = 13;
+	if (videoEnabled)
+	{
+		noOfTypes += 1;
+	}
+	double valuePerType = completeness / (double) noOfTypes;
+	if (title.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (platform.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (coverData.isNull())
+	{
+		completeness -= valuePerType;
+	}
+	if (screenshotData.isNull())
+	{
+		completeness -= valuePerType;
+	}
+	if (logoData.isNull())
+	{
+		completeness -= valuePerType;
+	}
+	if (marqueeData.isNull())
+	{
+		completeness -= valuePerType;
+	}
+	if (steamgridData.isNull())
+	{
+		completeness -= valuePerType;
+	}
+	if (iconData.isNull())
+	{
+		completeness -= valuePerType;
+	}
+	if (heroData.isNull())
+	{
+		completeness -= valuePerType;
+	}
+	if (description.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (releaseDate.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (developer.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (publisher.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (tags.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (rating.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (players.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (ages.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
+	if (videoEnabled && videoFormat.isEmpty())
+	{
+		completeness -= valuePerType;
+	}
 }
 
 int GameEntry::getCompleteness() const
 {
-  return (int)completeness;
+	return (int) completeness;
 }
 
 void GameEntry::resetMedia()
 {
-  coverData = QByteArray();
-  screenshotData = QByteArray();
-  logoData = QByteArray();
-  marqueeData = QByteArray();
-  steamgridData = QByteArray();
-  heroData = QByteArray();
-  videoData = "";
+	coverData = QByteArray();
+	screenshotData = QByteArray();
+	logoData = QByteArray();
+	marqueeData = QByteArray();
+	steamgridData = QByteArray();
+	iconData = QByteArray();
+	heroData = QByteArray();
+	videoData = "";
 }

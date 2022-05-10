@@ -33,12 +33,12 @@ NetManager::NetManager()
 
 QNetworkReply *NetManager::getRequest(const QNetworkRequest &request)
 {
-  QMutexLocker locker(&requestMutex);
-  return get(request);
+	QMutexLocker locker(&requestMutex);
+	return get(request);
 }
 
 QNetworkReply *NetManager::postRequest(const QNetworkRequest &request, const QByteArray &data)
 {
-  QMutexLocker locker(&requestMutex);
-  return post(request, data);
+	QMutexLocker locker(&requestMutex);
+	return post(request, data);
 }

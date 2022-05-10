@@ -23,8 +23,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
  */
 
-#include <cmath>
 #include <QPainter>
+#include <cmath>
 
 #include "fxbalance.h"
 
@@ -34,42 +34,47 @@ FxBalance::FxBalance()
 
 QImage FxBalance::applyEffect(const QImage &src, const Layer &layer)
 {
-  QImage canvas = src;
+	QImage canvas = src;
 
-  int redValue = layer.red;
-  int greenValue = layer.green;
-  int blueValue = layer.blue;
+	int redValue = layer.red;
+	int greenValue = layer.green;
+	int blueValue = layer.blue;
 
-  int indexRed[256];
-  int indexGreen[256];
-  int indexBlue[256];
-  for(int a = 0; a < 256; ++a) {
-    indexRed[a] = truncate(a + redValue);
-    indexGreen[a] = truncate(a + greenValue);
-    indexBlue[a] = truncate(a + blueValue);
-  }
+	int indexRed[256];
+	int indexGreen[256];
+	int indexBlue[256];
+	for (int a = 0; a < 256; ++a)
+	{
+		indexRed[a] = truncate(a + redValue);
+		indexGreen[a] = truncate(a + greenValue);
+		indexBlue[a] = truncate(a + blueValue);
+	}
 
-  for(int y = 0; y < canvas.height(); ++y) {
-    QRgb* line =(QRgb *)canvas.scanLine(y);
-    for(int x = 0; x < canvas.width(); ++x) {
-      
-      line[x] = qPremultiply(qRgba(indexRed[qRed(line[x])],
-				   indexGreen[qGreen(line[x])],
-				   indexBlue[qBlue(line[x])],
-				   qAlpha(line[x])));
-    }
-  }
+	for (int y = 0; y < canvas.height(); ++y)
+	{
+		QRgb *line = (QRgb *) canvas.scanLine(y);
+		for (int x = 0; x < canvas.width(); ++x)
+		{
 
-  return canvas;
+			line[x] = qPremultiply(qRgba(indexRed[qRed(line[x])],
+			                             indexGreen[qGreen(line[x])],
+			                             indexBlue[qBlue(line[x])],
+			                             qAlpha(line[x])));
+		}
+	}
+
+	return canvas;
 }
 
 int FxBalance::truncate(int value)
 {
-  if(value > 255) {
-    value = 255;
-  }
-  if(value < 0) {
-    value = 0;
-  }
-  return value;
+	if (value > 255)
+	{
+		value = 255;
+	}
+	if (value < 0)
+	{
+		value = 0;
+	}
+	return value;
 }

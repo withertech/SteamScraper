@@ -32,12 +32,12 @@
 
 class FxRounded : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxRounded();
-  QImage applyEffect(const QImage &src, const Layer &layer);
+	FxRounded();
 
+	QImage applyEffect(const QImage &src, const Layer &layer);
 };
 
-#endif // FXROUNDED_H
+#endif// FXROUNDED_H

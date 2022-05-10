@@ -28,27 +28,39 @@
 
 #include "gameentry.h"
 
-#include <QObject>
 #include <QFileInfo>
+#include <QObject>
 
 class NameTools : public QObject
 {
 public:
-  static QString getScummName(const QString baseName, const QString scummIni);
-  static QString getNameWithSpaces(const QString baseName);
-  static QString getUrlQueryName(const QString baseName,
-				 const int words = -1,
-				 const QString spaceChar = "+");
-  static bool hasIntegerNumeral(const QString baseName);
-  static bool hasRomanNumeral(const QString baseName);
-  static QString convertToIntegerNumeral(const QString baseName);
-  static QString convertToRomanNumeral(const QString baseName);
-  static int getNumeral(const QString baseName);
-  static QString getSqrNotes(QString baseName);
-  static QString getParNotes(QString baseName);
-  static QString getUniqueNotes(const QString &notes, QChar delim);
-  static QString getCacheId(const QFileInfo &info);
-  static QString getNameFromTemplate(const GameEntry &game, const QString &nameTemplate);
+	static QString getScummName(const QString baseName, const QString scummIni);
+
+	static QString getNameWithSpaces(const QString baseName);
+
+	static QString getUrlQueryName(const QString baseName,
+	                               const int words = -1,
+	                               const QString spaceChar = "+");
+
+	static bool hasIntegerNumeral(const QString baseName);
+
+	static bool hasRomanNumeral(const QString baseName);
+
+	static QString convertToIntegerNumeral(const QString baseName);
+
+	static QString convertToRomanNumeral(const QString baseName);
+
+	static int getNumeral(const QString baseName);
+
+	static QString getSqrNotes(QString baseName);
+
+	static QString getParNotes(QString baseName);
+
+	static QString getUniqueNotes(const QString &notes, QChar delim);
+
+	static QString getCacheId(const QFileInfo &info);
+
+	static QString getNameFromTemplate(const GameEntry &game, const QString &nameTemplate);
 };
 
-#endif // NAMETOOLS_H
+#endif// NAMETOOLS_H

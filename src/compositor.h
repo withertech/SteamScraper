@@ -29,25 +29,28 @@
 #include <QImage>
 #include <QXmlStreamReader>
 
-#include "settings.h"
 #include "gameentry.h"
 #include "layer.h"
+#include "settings.h"
 
 class Compositor : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  Compositor(Settings *config);
-  bool processXml();
-  void saveAll(GameEntry &game, QString completeBaseName);
+	Compositor(Settings *config);
+
+	bool processXml();
+
+	void saveAll(GameEntry &game, QString completeBaseName);
 
 private:
-  void addChildLayers(Layer &layer, QXmlStreamReader &xml);
-  void processChildLayers(GameEntry &game, Layer &layer);
-  Settings *config;
-  Layer outputs;
+	void addChildLayers(Layer &layer, QXmlStreamReader &xml);
 
+	void processChildLayers(GameEntry &game, Layer &layer);
+
+	Settings *config;
+	Layer outputs;
 };
 
-#endif // COMPOSITOR_H
+#endif// COMPOSITOR_H

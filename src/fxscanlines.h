@@ -33,12 +33,12 @@
 
 class FxScanlines : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxScanlines();
-  QImage applyEffect(const QImage &src, const Layer &layer, Settings *config);
+	FxScanlines();
 
+	QImage applyEffect(const QImage &src, const Layer &layer, Settings *config);
 };
 
-#endif // FXSCANLINES_H
+#endif// FXSCANLINES_H

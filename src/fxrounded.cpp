@@ -34,25 +34,25 @@ FxRounded::FxRounded()
 
 QImage FxRounded::applyEffect(const QImage &src, const Layer &layer)
 {
-  QImage canvas = src;
+	QImage canvas = src;
 
-  QImage mask(src.width(), src.height(), QImage::Format_ARGB32_Premultiplied);
-  mask.fill(Qt::transparent);
+	QImage mask(src.width(), src.height(), QImage::Format_ARGB32_Premultiplied);
+	mask.fill(Qt::transparent);
 
-  QPainter painter;
+	QPainter painter;
 
-  painter.begin(&mask);
-  painter.setRenderHint(QPainter::Antialiasing);
-  QPainterPath path;
-  path.addRoundedRect(0, 0, src.width(), src.height(), layer.width, layer.width);
-  painter.fillPath(path, Qt::black);
-  painter.drawPath(path);
-  painter.end();
+	painter.begin(&mask);
+	painter.setRenderHint(QPainter::Antialiasing);
+	QPainterPath path;
+	path.addRoundedRect(0, 0, src.width(), src.height(), layer.width, layer.width);
+	painter.fillPath(path, Qt::black);
+	painter.drawPath(path);
+	painter.end();
 
-  painter.begin(&canvas);
-  painter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
-  painter.drawImage(0, 0, mask);
-  painter.end();
+	painter.begin(&canvas);
+	painter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
+	painter.drawImage(0, 0, mask);
+	painter.end();
 
-  return canvas;
+	return canvas;
 }

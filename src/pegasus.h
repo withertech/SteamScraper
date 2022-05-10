@@ -30,32 +30,48 @@
 
 class Pegasus : public AbstractFrontend
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  Pegasus();
-  void assembleList(QString &finalOutput, QList<GameEntry> &gameEntries) override;
-  bool skipExisting(QList<GameEntry> &gameEntries, QSharedPointer<Queue> queue) override;
-  bool canSkip() override;
-  bool loadOldGameList(const QString &gameListFileString) override;
-  void preserveFromOld(GameEntry &entry) override;
-  QString getGameListFileName() override;
-  QString getInputFolder() override;
-  QString getGameListFolder() override;
-  QString getCoversFolder() override;
-  QString getScreenshotsFolder() override;
-  QString getWheelsFolder() override;
-  QString getMarqueesFolder() override;
-  QString getVideosFolder() override;
+	Pegasus();
+
+	void assembleList(QString &finalOutput, QList<GameEntry> &gameEntries) override;
+
+	bool skipExisting(QList<GameEntry> &gameEntries, QSharedPointer<Queue> queue) override;
+
+	bool canSkip() override;
+
+	bool loadOldGameList(const QString &gameListFileString) override;
+
+	void preserveFromOld(GameEntry &entry) override;
+
+	QString getGameListFileName() override;
+
+	QString getInputFolder() override;
+
+	QString getGameListFolder() override;
+
+	QString getCoversFolder() override;
+
+	QString getScreenshotsFolder() override;
+
+	QString getLogosFolder() override;
+
+	QString getMarqueesFolder() override;
+
+	QString getVideosFolder() override;
 
 private:
-  QString makeAbsolute(const QString &filePath, const QString &inputFolder);
-  QString fromPreservedHeader(const QString &key, const QString &suggested);
-  void removePreservedHeader(const QString &key);
-  QString toPegasusFormat(const QString &key, const QString &value);
-  QList<QPair<QString, QString> > headerPairs;
-  QString tab = "  ";
+	QString makeAbsolute(const QString &filePath, const QString &inputFolder);
 
+	QString fromPreservedHeader(const QString &key, const QString &suggested);
+
+	void removePreservedHeader(const QString &key);
+
+	QString toPegasusFormat(const QString &key, const QString &value);
+
+	QList<QPair<QString, QString>> headerPairs;
+	QString tab = "  ";
 };
 
-#endif // PEGASUS_H
+#endif// PEGASUS_H

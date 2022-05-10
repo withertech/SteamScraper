@@ -32,15 +32,15 @@
 
 class FxContrast : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxContrast();
-  QImage applyEffect(const QImage &src, const Layer &layer);
+	FxContrast();
+
+	QImage applyEffect(const QImage &src, const Layer &layer);
 
 private:
-  int truncate(int value);
-
+	int truncate(int value);
 };
 
-#endif // FXCONTRAST_H
+#endif// FXCONTRAST_H

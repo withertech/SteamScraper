@@ -32,12 +32,12 @@
 
 class FxStroke : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxStroke();
-  QImage applyEffect(const QImage &src, const Layer &layer);
+	FxStroke();
 
+	QImage applyEffect(const QImage &src, const Layer &layer);
 };
 
-#endif // FXSTROKE_H
+#endif// FXSTROKE_H

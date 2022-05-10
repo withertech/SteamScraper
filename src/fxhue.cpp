@@ -23,8 +23,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
  */
 
-#include <cmath>
 #include <QPainter>
+#include <cmath>
 
 #include "fxhue.h"
 
@@ -34,23 +34,26 @@ FxHue::FxHue()
 
 QImage FxHue::applyEffect(const QImage &src, const Layer &layer)
 {
-  QImage canvas = src;
+	QImage canvas = src;
 
-  int hue = layer.delta;
+	int hue = layer.delta;
 
-  if(hue > 359 || hue < 0) {
-    return canvas;
-  }
+	if (hue > 359 || hue < 0)
+	{
+		return canvas;
+	}
 
-  for(int y = 0; y < canvas.height(); ++y) {
-    QRgb* line = (QRgb *)canvas.scanLine(y);
-    for(int x = 0; x < canvas.width(); ++x) {
-      QColor color(line[x]);
-      color.setHsv(color.hue() + hue, color.saturation(), color.value(),
-		   qAlpha(line[x]));
-      line[x] = qPremultiply(color.rgba());
-    }
-  }
+	for (int y = 0; y < canvas.height(); ++y)
+	{
+		QRgb *line = (QRgb *) canvas.scanLine(y);
+		for (int x = 0; x < canvas.width(); ++x)
+		{
+			QColor color(line[x]);
+			color.setHsv(color.hue() + hue, color.saturation(), color.value(),
+			             qAlpha(line[x]));
+			line[x] = qPremultiply(color.rgba());
+		}
+	}
 
-  return canvas;
+	return canvas;
 }

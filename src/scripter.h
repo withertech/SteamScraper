@@ -30,12 +30,12 @@
 
 class Scripter : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  Scripter();
-  ~Scripter();
+	Scripter();
 
+	~Scripter();
 };
 
-#endif // SCRIPTER_H
+#endif// SCRIPTER_H

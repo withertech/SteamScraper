@@ -25,9 +25,9 @@
 #include <QFile>
 #include <QFileInfo>
 
-#include "xmlreader.h"
 #include "nametools.h"
 #include "strtools.h"
+#include "xmlreader.h"
 
 XmlReader::XmlReader()
 {
@@ -39,70 +39,76 @@ XmlReader::~XmlReader()
 
 bool XmlReader::setFile(QString filename)
 {
-  bool result = false;
+	bool result = false;
 
-  QFile f(filename);
-  if(f.open(QIODevice::ReadOnly)) {
-    if(setContent(f.readAll(), false)) {
-      result = true;
-    }
-    f.close();
-  }
-  return result;
+	QFile f(filename);
+	if (f.open(QIODevice::ReadOnly))
+	{
+		if (setContent(f.readAll(), false))
+		{
+			result = true;
+		}
+		f.close();
+	}
+	return result;
 }
 
 QList<GameEntry> XmlReader::getEntries(QString inputFolder)
 {
-  QList<GameEntry> gameEntries;
+	QList<GameEntry> gameEntries;
 
-  QDomNodeList gameNodes = elementsByTagName("game");
-  QDomNodeList pathNodes = elementsByTagName("folder");
+	QDomNodeList gameNodes = elementsByTagName("game");
+	QDomNodeList pathNodes = elementsByTagName("folder");
 
-  addEntries(gameNodes, gameEntries, inputFolder);
-  addEntries(pathNodes, gameEntries, inputFolder);
+	addEntries(gameNodes, gameEntries, inputFolder);
+	addEntries(pathNodes, gameEntries, inputFolder);
 
-  return gameEntries;
+	return gameEntries;
 }
 
 void XmlReader::addEntries(const QDomNodeList &nodes, QList<GameEntry> &gameEntries,
-			   const QString &inputFolder)
+                           const QString &inputFolder)
 {
-  for(int a = 0; a < nodes.length(); ++a) {
-    GameEntry entry;
-    entry.path = makeAbsolute(nodes.at(a).firstChildElement("path").text(), inputFolder);
-    // Do NOT get sqr and par notes here. They are not used by skipExisting
-    entry.title = nodes.at(a).firstChildElement("name").text();
-    entry.coverFile = makeAbsolute(nodes.at(a).firstChildElement("cover").text(), inputFolder);
-    entry.screenshotFile = makeAbsolute(nodes.at(a).firstChildElement("image").text(), inputFolder);
-    entry.marqueeFile = makeAbsolute(nodes.at(a).firstChildElement("marquee").text(), inputFolder);
-    entry.steamgridFile = makeAbsolute(nodes.at(a).firstChildElement("steamgrid").text(), inputFolder);
-    entry.heroFile = makeAbsolute(nodes.at(a).firstChildElement("hero").text(), inputFolder);
-    entry.videoFile = makeAbsolute(nodes.at(a).firstChildElement("video").text(), inputFolder);
-    if(!entry.videoFile.isEmpty()) {
-      entry.videoFormat = "fromxml";
-    }
-    entry.description = nodes.at(a).firstChildElement("desc").text();
-    entry.releaseDate = nodes.at(a).firstChildElement("releasedate").text();
-    entry.developer = nodes.at(a).firstChildElement("developer").text();
-    entry.publisher = nodes.at(a).firstChildElement("publisher").text();
-    entry.tags = nodes.at(a).firstChildElement("genre").text();
-    entry.rating = nodes.at(a).firstChildElement("rating").text();
-    entry.players = nodes.at(a).firstChildElement("players").text();
-    entry.eSFavorite = nodes.at(a).firstChildElement("favorite").text();
-    entry.eSHidden = nodes.at(a).firstChildElement("hidden").text();
-    entry.eSPlayCount = nodes.at(a).firstChildElement("playcount").text();
-    entry.eSLastPlayed = nodes.at(a).firstChildElement("lastplayed").text();
-    entry.eSKidGame = nodes.at(a).firstChildElement("kidgame").text();
-    entry.eSSortName = nodes.at(a).firstChildElement("sortname").text();
-    gameEntries.append(entry);
-  }
+	for (int a = 0; a < nodes.length(); ++a)
+	{
+		GameEntry entry;
+		entry.path = makeAbsolute(nodes.at(a).firstChildElement("path").text(), inputFolder);
+		// Do NOT get sqr and par notes here. They are not used by skipExisting
+		entry.title = nodes.at(a).firstChildElement("name").text();
+		entry.coverFile = makeAbsolute(nodes.at(a).firstChildElement("cover").text(), inputFolder);
+		entry.screenshotFile = makeAbsolute(nodes.at(a).firstChildElement("image").text(), inputFolder);
+		entry.marqueeFile = makeAbsolute(nodes.at(a).firstChildElement("marquee").text(), inputFolder);
+		entry.steamgridFile = makeAbsolute(nodes.at(a).firstChildElement("steamgrid").text(), inputFolder);
+		entry.iconFile = makeAbsolute(nodes.at(a).firstChildElement("icon").text(), inputFolder);
+		entry.heroFile = makeAbsolute(nodes.at(a).firstChildElement("hero").text(), inputFolder);
+		entry.videoFile = makeAbsolute(nodes.at(a).firstChildElement("video").text(), inputFolder);
+		if (!entry.videoFile.isEmpty())
+		{
+			entry.videoFormat = "fromxml";
+		}
+		entry.description = nodes.at(a).firstChildElement("desc").text();
+		entry.releaseDate = nodes.at(a).firstChildElement("releasedate").text();
+		entry.developer = nodes.at(a).firstChildElement("developer").text();
+		entry.publisher = nodes.at(a).firstChildElement("publisher").text();
+		entry.tags = nodes.at(a).firstChildElement("genre").text();
+		entry.rating = nodes.at(a).firstChildElement("rating").text();
+		entry.players = nodes.at(a).firstChildElement("players").text();
+		entry.eSFavorite = nodes.at(a).firstChildElement("favorite").text();
+		entry.eSHidden = nodes.at(a).firstChildElement("hidden").text();
+		entry.eSPlayCount = nodes.at(a).firstChildElement("playcount").text();
+		entry.eSLastPlayed = nodes.at(a).firstChildElement("lastplayed").text();
+		entry.eSKidGame = nodes.at(a).firstChildElement("kidgame").text();
+		entry.eSSortName = nodes.at(a).firstChildElement("sortname").text();
+		gameEntries.append(entry);
+	}
 }
 
 QString XmlReader::makeAbsolute(QString filePath, const QString &inputFolder)
 {
-  if(filePath.left(1) == ".") {
-    filePath.remove(0, 1);
-    filePath.prepend(inputFolder);
-  }
-  return filePath;
+	if (filePath.left(1) == ".")
+	{
+		filePath.remove(0, 1);
+		filePath.prepend(inputFolder);
+	}
+	return filePath;
 }

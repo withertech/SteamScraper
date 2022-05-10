@@ -33,12 +33,12 @@
 
 class FxMask : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxMask();
-  QImage applyEffect(const QImage &src, const Layer &layer, Settings *config);
+	FxMask();
 
+	QImage applyEffect(const QImage &src, const Layer &layer, Settings *config);
 };
 
-#endif // FXMASK_H
+#endif// FXMASK_H

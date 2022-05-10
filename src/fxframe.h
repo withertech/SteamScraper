@@ -33,12 +33,12 @@
 
 class FxFrame : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxFrame();
-  QImage applyEffect(const QImage &src, const Layer &layer, Settings *config);
+	FxFrame();
 
+	QImage applyEffect(const QImage &src, const Layer &layer, Settings *config);
 };
 
-#endif // FXFRAME_H
+#endif// FXFRAME_H

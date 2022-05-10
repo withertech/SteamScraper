@@ -23,8 +23,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
  */
 
-#include <cmath>
 #include <QPainter>
+#include <cmath>
 
 #include "fxsaturation.h"
 
@@ -34,30 +34,34 @@ FxSaturation::FxSaturation()
 
 QImage FxSaturation::applyEffect(const QImage &src, const Layer &layer)
 {
-  QImage canvas = src;
+	QImage canvas = src;
 
-  int saturation = layer.delta;
+	int saturation = layer.delta;
 
-  for(int y = 0; y < canvas.height(); ++y) {
-    QRgb* line = (QRgb *)canvas.scanLine(y);
-    for(int x = 0; x < canvas.width(); ++x) {
-      QColor color(line[x]);
-      color.setHsl(color.hue(), truncate(color.hslSaturation() + saturation), color.lightness(),
-		   qAlpha(line[x]));
-      line[x] = qPremultiply(color.rgba());
-    }
-  }
+	for (int y = 0; y < canvas.height(); ++y)
+	{
+		QRgb *line = (QRgb *) canvas.scanLine(y);
+		for (int x = 0; x < canvas.width(); ++x)
+		{
+			QColor color(line[x]);
+			color.setHsl(color.hue(), truncate(color.hslSaturation() + saturation), color.lightness(),
+			             qAlpha(line[x]));
+			line[x] = qPremultiply(color.rgba());
+		}
+	}
 
-  return canvas;
+	return canvas;
 }
 
 int FxSaturation::truncate(int value)
 {
-  if(value > 255) {
-    value = 255;
-  }
-  if(value < 0) {
-    value = 0;
-  }
-  return value;
+	if (value > 255)
+	{
+		value = 255;
+	}
+	if (value < 0)
+	{
+		value = 0;
+	}
+	return value;
 }

@@ -32,33 +32,47 @@
 
 class AttractMode : public AbstractFrontend
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  AttractMode();
-  void checkReqs() override;
-  bool skipExisting(QList<GameEntry> &gameEntries, QSharedPointer<Queue> queue) override;
-  void assembleList(QString &finalOutput, QList<GameEntry> &gameEntries) override;
-  bool canSkip() override;
-  bool loadOldGameList(const QString &gameListFileString) override;
-  void preserveFromOld(GameEntry &entry) override;
-  QString getGameListFileName() override;
-  QString getInputFolder() override;
-  QString getGameListFolder() override;
-  QString getCoversFolder() override;
-  QString getScreenshotsFolder() override;
-  QString getWheelsFolder() override;
-  QString getMarqueesFolder() override;
-  QString getVideosFolder() override;
+	AttractMode();
+
+	void checkReqs() override;
+
+	bool skipExisting(QList<GameEntry> &gameEntries, QSharedPointer<Queue> queue) override;
+
+	void assembleList(QString &finalOutput, QList<GameEntry> &gameEntries) override;
+
+	bool canSkip() override;
+
+	bool loadOldGameList(const QString &gameListFileString) override;
+
+	void preserveFromOld(GameEntry &entry) override;
+
+	QString getGameListFileName() override;
+
+	QString getInputFolder() override;
+
+	QString getGameListFolder() override;
+
+	QString getCoversFolder() override;
+
+	QString getScreenshotsFolder() override;
+
+	QString getLogosFolder() override;
+
+	QString getMarqueesFolder() override;
+
+	QString getVideosFolder() override;
 
 private:
-  bool saveDescFile = false;
-  QFileInfo emuInfo;
-  QDir descDir;
+	bool saveDescFile = false;
+	QFileInfo emuInfo;
+	QDir descDir;
 
-  QString getMediaTypeFolder(QString type, bool detectVideoPath = false);
-  bool checkEmulatorFile(QString fileName);
+	QString getMediaTypeFolder(QString type, bool detectVideoPath = false);
 
+	bool checkEmulatorFile(QString fileName);
 };
 
-#endif // ATTRACTMODE_H
+#endif// ATTRACTMODE_H

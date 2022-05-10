@@ -26,24 +26,29 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include <QList>
 #include <QFileInfo>
+#include <QList>
 #include <QMutex>
 
 class Queue : public QList<QFileInfo>
 {
 public:
-  Queue();
-  bool hasEntry();
-  QFileInfo takeEntry();
-  void clearAll();
-  void filterFiles(const QString &patterns, const bool &include = false);
-  void removeFiles(const QList<QString> &files);
+	Queue();
+
+	bool hasEntry();
+
+	QFileInfo takeEntry();
+
+	void clearAll();
+
+	void filterFiles(const QString &patterns, const bool &include = false);
+
+	void removeFiles(const QList<QString> &files);
 
 private:
-  QMutex queueMutex;
-  QList<QString> getRegExpPatterns(QString patterns);
+	QMutex queueMutex;
 
+	QList<QString> getRegExpPatterns(QString patterns);
 };
 
-#endif // QUEUE_H
+#endif// QUEUE_H

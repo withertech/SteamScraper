@@ -32,12 +32,12 @@
 
 class FxOpacity : public QObject
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public:
-  FxOpacity();
-  QImage applyEffect(const QImage &src, const Layer &layer);
+	FxOpacity();
 
+	QImage applyEffect(const QImage &src, const Layer &layer);
 };
 
-#endif // FXOPACITY_H
+#endif// FXOPACITY_H

@@ -23,8 +23,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
  */
 
-#include <cmath>
 #include <QPainter>
+#include <cmath>
 
 #include "fxcontrast.h"
 
@@ -34,38 +34,43 @@ FxContrast::FxContrast()
 
 QImage FxContrast::applyEffect(const QImage &src, const Layer &layer)
 {
-  QImage canvas = src;
+	QImage canvas = src;
 
-  int contrast = layer.delta;
+	int contrast = layer.delta;
 
-  double factor = (259.0 * ((double)contrast + 255.0)) / (255.0 * (259.0 - (double)contrast));
+	double factor = (259.0 * ((double) contrast + 255.0)) / (255.0 * (259.0 - (double) contrast));
 
-  double index[256];
-  for(int a = 0; a < 256; ++a) {
-    index[a] = truncate(round(factor * a));
-  }
+	double index[256];
+	for (int a = 0; a < 256; ++a)
+	{
+		index[a] = truncate(round(factor * a));
+	}
 
-  for(int y = 0; y < canvas.height(); ++y) {
-    QRgb* line = (QRgb *)canvas.scanLine(y);
-    for(int x = 0; x < canvas.width(); ++x) {
-      
-      line[x] = qPremultiply(qRgba(index[qRed(line[x])],
-				   index[qGreen(line[x])],
-				   index[qBlue(line[x])],
-				   qAlpha(line[x])));
-    }
-  }
+	for (int y = 0; y < canvas.height(); ++y)
+	{
+		QRgb *line = (QRgb *) canvas.scanLine(y);
+		for (int x = 0; x < canvas.width(); ++x)
+		{
 
-  return canvas;
+			line[x] = qPremultiply(qRgba(index[qRed(line[x])],
+			                             index[qGreen(line[x])],
+			                             index[qBlue(line[x])],
+			                             qAlpha(line[x])));
+		}
+	}
+
+	return canvas;
 }
 
 int FxContrast::truncate(int value)
 {
-  if(value > 255) {
-    value = 255;
-  }
-  if(value < 0) {
-    value = 0;
-  }
-  return value;
+	if (value > 255)
+	{
+		value = 255;
+	}
+	if (value < 0)
+	{
+		value = 0;
+	}
+	return value;
 }
