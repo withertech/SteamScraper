@@ -16,14 +16,14 @@ Below follows a description of all scraping modules.
 * API request limit: *20k per day for registered users*
 * Thread limit: *1 or more depending on user credentials*
 * Platform support: *[Check list under "Systémes"](https://www.screenscraper.fr)*
-* Media support: *`cover`, `screenshot`, `wheel`, `marquee`, `video`*
+* Media support: *`cover`, `screenshot`, `logo`, `marquee`, `steamgrid`, `icon`, `video`*
 * Example use: `Steamscraper -p snes -s screenscraper`
 
 ScreenScraper is probably the most versatile and complete retro gaming database out there. It searches for games using either the checksums of the files or by comparing the *exact* file name to entries in their database.
 
 It can be used for gathering data for pretty much all platforms, but it does have issues with platforms that are ISO based. Still, even for those platforms, it does locate some games.
 
-It has the best support for the `wheel` and `marquee` artwork types of any of the databases, and also contains videos for a lot of the games.
+It has the best support for the `logo` and `marquee` artwork types of the databases, and also contains videos for a lot of the games.
 
 I strongly recommend supporting them by contributing data to the database, or by supporting them with a bit of money. This can also give you more threads to scrape with.
 
@@ -54,7 +54,7 @@ Steamscraper will search for the `gamelist.xml` file at `<INPUT FOLDER>/gamelist
 * API request limit: *None*
 * Thread limit: *None*
 * Platform support: *All*
-* Media support: *`cover`, `screenshot`, `wheel`, `marquee`, `video`*
+* Media support: *`cover`, `screenshot`, `logo`, `marquee`, `steamgrid`, `icon`, `hero`, `video`*
 * Example use: `Steamscraper -p snes -s import`
 
 Read a thorough description of this module [here](IMPORT.md).
