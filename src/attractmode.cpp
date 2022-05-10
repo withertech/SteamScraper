@@ -312,7 +312,7 @@ QString AttractMode::getScreenshotsFolder()
 
 QString AttractMode::getLogosFolder()
 {
-	QString type = "wheel";
+	QString type = "logo";
 	QString mediaTypeFolder = getMediaTypeFolder(type);
 	if (mediaTypeFolder.isEmpty())
 	{
