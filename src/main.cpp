@@ -6,20 +6,20 @@
  *  muldjordlars@gmail.com
  ****************************************************************************/
 /*
- *  This file is part of skyscraper.
+ *  This file is part of steamscraper.
  *
- *  skyscraper is free software; you can redistribute it and/or modify
+ *  steamscraper is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  skyscraper is distributed in the hope that it will be useful,
+ *  steamscraper is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with skyscraper; if not, write to the Free Software
+ *  along with steamscraper; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
  */
 
@@ -51,10 +51,10 @@
 
 #include "platform.h"
 #include "scripter.h"
-#include "skyscraper.h"
+#include "steamscraper.h"
 #include "strtools.h"
 
-Skyscraper *x = nullptr;
+Steamscraper *x = nullptr;
 int sigIntRequests = 0;
 
 void customMessageHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
@@ -168,7 +168,7 @@ void sigHandler(int signal)
 		QString currentDir = QDir::currentPath();
 
 		// Set the working directory to the applications own path
-		QDir skyDir(QDir::homePath() + "/.skyscraper");
+		QDir skyDir(QDir::homePath() + "/.steamscraper");
 		if (!skyDir.exists())
 		{
 			if (!skyDir.mkpath("."))
@@ -214,7 +214,7 @@ void sigHandler(int signal)
 
 		QCommandLineParser parser;
 
-		QString headerString = "Running Skyscraper v" VERSION " by Lars Muldjord";
+		QString headerString = "Running Steamscraper v" VERSION " by Witherking25, a fork of Skyscraper by Lars Muldjord";
 		QString dashesString = "";
 		for (int a = 0; a < headerString.length(); ++a)
 		{
@@ -222,13 +222,13 @@ void sigHandler(int signal)
 		}
 
 		parser.setApplicationDescription(StrTools::getVersionHeader() +
-		                                 "Skyscraper looks for compatible game files for the chosen platform (set with '-p'). It allows you to gather and cache media and game information for the files using various scraping modules (set with '-s'). It then lets you generate game lists for the supported frontends by combining all previously cached resources ('game list generation mode' is initiated by simply leaving out the '-s' option). While doing so it also composites game art for all files by following the recipe at '/home/USER/.skyscraper/artwork.xml'.\n\nIn addition to the command line options Skyscraper also provides a lot of customizable options for configuration, artwork, game name aliases, resource priorities and much more. Please check the full documentation at 'github.com/muldjord/skyscraper/tree/master/docs' for a detailed explanation of all features.\n\nRemember that most of the following options can also be set in the '/home/USER/.skyscraper/config.ini' file. All cli options and config.ini options are thoroughly documented at the above link.");
+		                                 "Steamscraper looks for compatible game files for the chosen platform (set with '-p'). It allows you to gather and cache media and game information for the files using various scraping modules (set with '-s'). It then lets you generate game lists for the supported frontends by combining all previously cached resources ('game list generation mode' is initiated by simply leaving out the '-s' option). While doing so it also composites game art for all files by following the recipe at '/home/USER/.steamscraper/artwork.xml'.\n\nIn addition to the command line options Steamscraper also provides a lot of customizable options for configuration, artwork, game name aliases, resource priorities and much more. Please check the full documentation at 'github.com/withertech/SteamScraper/tree/master/docs' for a detailed explanation of all features.\n\nRemember that most of the following options can also be set in the '/home/USER/.steamscraper/config.ini' file. All cli options and config.ini options are thoroughly documented at the above link.");
 		parser.addHelpOption();
 		parser.addVersionOption();
 		QCommandLineOption pOption("p", "The platform you wish to scrape.\n(Currently supports " + platforms + ".)",
 		                           "PLATFORM", "");
 		QCommandLineOption fOption("f",
-		                           "The frontend you wish to generate a gamelist for. Remember to leave out the '-s' option when using this in order to enable Skyscraper's gamelist generation mode.\n(Currently supports 'emulationstation', 'attractmode' and 'pegasus'. Default is 'emulationstation')",
+		                           "The frontend you wish to generate a gamelist for. Remember to leave out the '-s' option when using this in order to enable Steamscraper's gamelist generation mode.\n(Currently supports 'emulationstation', 'attractmode' and 'pegasus'. Default is 'emulationstation')",
 		                           "FRONTEND", "");
 		QCommandLineOption eOption("e",
 		                           "Set extra frontend option. This is required by the 'attractmode' frontend to set the emulator and optionally for the 'pegasus' frontend to set the launch command.\n(Default is none)",
@@ -239,7 +239,7 @@ void sigHandler(int signal)
 		QCommandLineOption gOption("g", "Game list export folder.\n(default depends on frontend)", "PATH", "");
 		QCommandLineOption oOption("o", "Game media export folder.\n(default depends on frontend)", "PATH", "");
 		QCommandLineOption sOption("s",
-		                           "The scraping module you wish to gather resources from for the platform set with '-p'.\nLeave the '-s' option out to enable Skyscraper's gamelist generation mode.\n(WEB: 'screenscraper', LOCAL: 'esgamelist' and 'import')",
+		                           "The scraping module you wish to gather resources from for the platform set with '-p'.\nLeave the '-s' option out to enable Steamscraper's gamelist generation mode.\n(WEB: 'screenscraper', LOCAL: 'esgamelist' and 'import')",
 		                           "MODULE", "");
 		QCommandLineOption uOption("u",
 		                           "userKey or UserID and Password for use with the selected scraping module.\n(Default is none)",
@@ -254,13 +254,13 @@ void sigHandler(int signal)
 		                           "Number of scraper threads to use. This might change depending on the scraping module limits.\n(default is 4)",
 		                           "1-8", "");
 		QCommandLineOption cOption("c",
-		                           "Use this config file to set up Skyscraper.\n(default is '/home/USER/.skyscraper/config.ini')",
+		                           "Use this config file to set up Steamscraper.\n(default is '/home/USER/.steamscraper/config.ini')",
 		                           "FILENAME", "");
 		QCommandLineOption aOption("a",
-		                           "Specify a non-default artwork.xml file to use when setting up the artwork compositing when in gamelist generation mode.\n(default is '/home/USER/.skyscraper/artwork.xml')",
+		                           "Specify a non-default artwork.xml file to use when setting up the artwork compositing when in gamelist generation mode.\n(default is '/home/USER/.steamscraper/artwork.xml')",
 		                           "FILENAME", "");
 		QCommandLineOption dOption("d",
-		                           "Set custom resource cache folder.\n(default is '/home/USER/.skyscraper/cache/PLATFORM')",
+		                           "Set custom resource cache folder.\n(default is '/home/USER/.steamscraper/cache/PLATFORM')",
 		                           "FOLDER", "");
 		QCommandLineOption addextOption("addext",
 		                                "Add this or these file extension(s) to accepted file extensions during a scraping run. (example: '*.zst' or '*.zst *.ext')",
@@ -273,31 +273,31 @@ void sigHandler(int signal)
 		                               "COMMAND[:OPTIONS]", "");
 		QCommandLineOption refreshOption("refresh", "Same as '--cache refresh'.");
 		QCommandLineOption startatOption("startat",
-		                                 "Tells Skyscraper which file to start at. Forces '--refresh' and '--flags nosubdirs' enabled.",
+		                                 "Tells Steamscraper which file to start at. Forces '--refresh' and '--flags nosubdirs' enabled.",
 		                                 "FILENAME", "");
 		QCommandLineOption endatOption("endat",
-		                               "Tells Skyscraper which file to end at. Forces '--refresh' and '--flags nosubdirs' enabled.",
+		                               "Tells Steamscraper which file to end at. Forces '--refresh' and '--flags nosubdirs' enabled.",
 		                               "FILENAME", "");
 		QCommandLineOption includefilesOption("includefiles",
-		                                      "(DEPRECATED, please use '--includepattern' instead) Tells Skyscraper to only include the files matching the provided asterisk pattern(s). Remember to double-quote the pattern to avoid weird behaviour. You can add several patterns by separating them with ','. In cases where you need to match for a comma you need to escape it as '\\,'. (Pattern example: '\"Super*,*Fighter*\"')",
+		                                      "(DEPRECATED, please use '--includepattern' instead) Tells Steamscraper to only include the files matching the provided asterisk pattern(s). Remember to double-quote the pattern to avoid weird behaviour. You can add several patterns by separating them with ','. In cases where you need to match for a comma you need to escape it as '\\,'. (Pattern example: '\"Super*,*Fighter*\"')",
 		                                      "PATTERN", "");
 		QCommandLineOption includepatternOption("includepattern",
-		                                        "Tells Skyscraper to only include the files matching the provided asterisk pattern(s). Remember to double-quote the pattern to avoid weird behaviour. You can add several patterns by separating them with ','. In cases where you need to match for a comma you need to escape it as '\\,'. (Pattern example: '\"Super*,*Fighter*\"')",
+		                                        "Tells Steamscraper to only include the files matching the provided asterisk pattern(s). Remember to double-quote the pattern to avoid weird behaviour. You can add several patterns by separating them with ','. In cases where you need to match for a comma you need to escape it as '\\,'. (Pattern example: '\"Super*,*Fighter*\"')",
 		                                        "PATTERN", "");
 		QCommandLineOption excludefilesOption("excludefiles",
-		                                      "(DEPRECATED, please use '--excludepattern' instead) Tells Skyscraper to always exclude the files matching the provided asterisk pattern(s). Remember to double-quote the pattern to avoid weird behaviour. You can add several patterns by separating them with ','. In cases where you need to match for a comma you need to escape it as '\\,'. (Pattern example: '\"*[BIOS]*,*proto*\"')",
+		                                      "(DEPRECATED, please use '--excludepattern' instead) Tells Steamscraper to always exclude the files matching the provided asterisk pattern(s). Remember to double-quote the pattern to avoid weird behaviour. You can add several patterns by separating them with ','. In cases where you need to match for a comma you need to escape it as '\\,'. (Pattern example: '\"*[BIOS]*,*proto*\"')",
 		                                      "PATTERN", "");
 		QCommandLineOption excludepatternOption("excludepattern",
-		                                        "Tells Skyscraper to always exclude the files matching the provided asterisk pattern(s). Remember to double-quote the pattern to avoid weird behaviour. You can add several patterns by separating them with ','. In cases where you need to match for a comma you need to escape it as '\\,'. (Pattern example: '\"*[BIOS]*,*proto*\"')",
+		                                        "Tells Steamscraper to always exclude the files matching the provided asterisk pattern(s). Remember to double-quote the pattern to avoid weird behaviour. You can add several patterns by separating them with ','. In cases where you need to match for a comma you need to escape it as '\\,'. (Pattern example: '\"*[BIOS]*,*proto*\"')",
 		                                        "PATTERN", "");
 		QCommandLineOption fromfileOption("fromfile",
-		                                  "(DEPRECATED, please use '--includefrom' instead) Tells Skyscraper to load the list of filenames to work on from a file. This file can be generated with the '--cache report:missing' option or made manually.",
+		                                  "(DEPRECATED, please use '--includefrom' instead) Tells Steamscraper to load the list of filenames to work on from a file. This file can be generated with the '--cache report:missing' option or made manually.",
 		                                  "FILENAME", "");
 		QCommandLineOption includefromOption("includefrom",
-		                                     "Tells Skyscraper to only include the files listed in FILENAME. One filename per line. This file can be generated with the '--cache report:missing' option or made manually.",
+		                                     "Tells Steamscraper to only include the files listed in FILENAME. One filename per line. This file can be generated with the '--cache report:missing' option or made manually.",
 		                                     "FILENAME", "");
 		QCommandLineOption excludefromOption("excludefrom",
-		                                     "Tells Skyscraper to exclude all files listed in FILENAME. One filename per line. This file can be generated with the '--cache report:missing' option or made manually.",
+		                                     "Tells Steamscraper to exclude all files listed in FILENAME. One filename per line. This file can be generated with the '--cache report:missing' option or made manually.",
 		                                     "FILENAME", "");
 		QCommandLineOption maxfailsOption("maxfails",
 		                                  "Sets the allowed number of initial 'Not found' results before rage-quitting. (Default is 42)",
@@ -360,8 +360,8 @@ void sigHandler(int signal)
 		}
 		else
 		{
-			x = new Skyscraper(parser, currentDir);
-			QObject::connect(x, &Skyscraper::finished, &app, &QCoreApplication::quit);
+			x = new Steamscraper(parser, currentDir);
+			QObject::connect(x, &Steamscraper::finished, &app, &QCoreApplication::quit);
 			QTimer::singleShot(0, x, SLOT(run()));
 		}
 		return app.exec();
@@ -370,8 +370,8 @@ void sigHandler(int signal)
 	  if(parser.isSet("help") || parser.isSet("h")) {
 		parser.showHelp();
 	  } else {
-		x = new Skyscraper(parser, currentDir);
-		QObject::connect(x, &Skyscraper::finished, &app, &QCoreApplication::quit);
+		x = new Steamscraper(parser, currentDir);
+		QObject::connect(x, &Steamscraper::finished, &app, &QCoreApplication::quit);
 		QTimer::singleShot(0, x, SLOT(run()));
 	  }
 	  return app.exec();

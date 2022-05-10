@@ -71,13 +71,13 @@ void ScreenScraper::getSearchResults(QList<GameEntry> &gameEntries,
 	if (platformId == "na")
 	{
 		reqRemaining = 0;
-		printf("\033[0;31mPlatform not supported by ScreenScraper or it hasn't yet been included in Skyscraper for this module...\033[0m\n");
+		printf("\033[0;31mPlatform not supported by ScreenScraper or it hasn't yet been included in Steamscraper for this module...\033[0m\n");
 		return;
 	}
 
 	QString gameUrl = "https://www.screenscraper.fr/api2/jeuInfos.php?devid=muldjord&devpassword=" +
 	                  StrTools::unMagic("204;198;236;130;203;181;203;126;191;167;200;198;192;228;169;156") +
-	                  "&softname=skyscraper" VERSION + (config->user.isEmpty() ? "" : "&ssid=" + config->user) +
+	                  "&softname=steamscraper" VERSION + (config->user.isEmpty() ? "" : "&ssid=" + config->user) +
 	                  (config->password.isEmpty() ? "" : "&sspassword=" + config->password) +
 	                  (platformId.isEmpty() ? "" : "&systemeid=" + platformId) + "&output=json&" + searchName;
 
@@ -192,7 +192,7 @@ void ScreenScraper::getSearchResults(QList<GameEntry> &gameEntries,
 
 	QString systemUrl = "https://www.screenscraper.fr/api2/systemesListe.php?devid=muldjord&devpassword=" +
 	                    StrTools::unMagic("204;198;236;130;203;181;203;126;191;167;200;198;192;228;169;156") +
-	                    "&softname=skyscraper" VERSION + (config->user.isEmpty() ? "" : "&ssid=" + config->user) +
+	                    "&softname=steamscraper" VERSION + (config->user.isEmpty() ? "" : "&ssid=" + config->user) +
 	                    (config->password.isEmpty() ? "" : "&sspassword=" + config->password) + "&output=json";
 
 	for (int retries = 0; retries < RETRIESMAX; ++retries)

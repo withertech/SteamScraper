@@ -1,5 +1,5 @@
 ## config.ini options
-Look below to find a thorough description of all options and sections available in the `/home/USER/.skyscraper/config.ini` configuration file. These options will then be applied whenever running Skyscraper with the `Skyscraper` command.
+Look below to find a thorough description of all options and sections available in the `/home/USER/.steamscraper/config.ini` configuration file. These options will then be applied whenever running Steamscraper with the `Steamscraper` command.
 
 Please take note that almost all of these options are set at a useful default (and can therefore be left out) and should only be set if your use case requires it.
 
@@ -17,7 +17,7 @@ Settings in the `[main]` section will always be set regardless of selected platf
 
 Each section can have overlapping parameters. In case where a certain option exists in several sections they are prioritized as scraping module first, then frontend, then platform and lastly main.
 
-You can find an example config file at `/home/USER/.skyscraper/config.ini.example`. This file contains all available options. Just copy the file to `config.ini` and uncomment and edit the ones you wish to use by removing the `#` in front of the variables. Remember to also uncomment the section the option relates to such as `[main]` or `[amiga]`.
+You can find an example config file at `/home/USER/.steamscraper/config.ini.example`. This file contains all available options. Just copy the file to `config.ini` and uncomment and edit the ones you wish to use by removing the `#` in front of the variables. Remember to also uncomment the section the option relates to such as `[main]` or `[amiga]`.
 
 NOTE! You can set a custom configuration file with the `-c <FILENAME>` command line option. Read more about all available command line options [here](CLIHELP.md).
 
@@ -50,7 +50,7 @@ userCreds="USER:PASSWORD"
 ```
 
 #### inputFolder="/home/pi/RetroPie/roms"
-Sets the rom input folder. By default Skyscraper will look for roms in the `/home/<USER>/RetroPie/roms/<PLATFORM>` folder. If your roms are located in a non-default location, you can set the input path using this option.
+Sets the rom input folder. By default Steamscraper will look for roms in the `/home/<USER>/RetroPie/roms/<PLATFORM>` folder. If your roms are located in a non-default location, you can set the input path using this option.
 
 NOTE! If this is set in the `[main]` section it will automatically add `/<PLATFORM>` to the end of the path. If you want better control consider adding it to a `[<PLATFORM>]` section instead where it will be used as is.
 
@@ -58,7 +58,7 @@ NOTE! If this is set in the `[main]` section it will automatically add `/<PLATFO
 `[main]`, `[<PLATFORM>]`
 
 #### gameListFolder="/home/pi/RetroPie/roms"
-Sets the game list export folder. By default Skyscraper exports the game list to the same directory as the rom input folder. This enables you to change that to a non-default location.
+Sets the game list export folder. By default Steamscraper exports the game list to the same directory as the rom input folder. This enables you to change that to a non-default location.
 
 NOTE! If this is set in the `[main]` section it will automatically add `/<PLATFORM>` to the end of the path. If you want better control consider adding it to a `[<PLATFORM>]` section instead where it will be used as is.
 
@@ -66,13 +66,13 @@ NOTE! If this is set in the `[main]` section it will automatically add `/<PLATFO
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### gameListBackup="true"
-When set to true Skyscraper will create a backup of the existing game list each time it is run in game list generation mode (this mode is enabled by leaving out the `-s MODULE` option). The filename and path of the backup will be equal to the existing game list but have a timestamp appended to the name of the format `-yyyyMMdd-hhmmss` (eg. `gamelist.xml-20200530-115900`).
+When set to true Steamscraper will create a backup of the existing game list each time it is run in game list generation mode (this mode is enabled by leaving out the `-s MODULE` option). The filename and path of the backup will be equal to the existing game list but have a timestamp appended to the name of the format `-yyyyMMdd-hhmmss` (eg. `gamelist.xml-20200530-115900`).
 
 ###### Allowed in sections
 `[main]`, `[<FRONTEND>]`
 
 #### mediaFolder="/home/pi/RetroPie/roms"
-Sets the artwork / media output folder. By default Skyscraper outputs the composited artwork files to the game list export folder + `/media`. This allows you to change that to a non-default location.
+Sets the artwork / media output folder. By default Steamscraper outputs the composited artwork files to the game list export folder + `/media`. This allows you to change that to a non-default location.
 
 Read more about the artwork compositing [here](ARTWORK.md).
 
@@ -82,7 +82,7 @@ NOTE! If this is set in the `[main]` section it will automatically add `/<PLATFO
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### mediaFolderHidden="false"
-By default Skyscraper uses the `PLATFORM/media` folder when generating EmulationStation media. Setting this option will change that to `PLATFORM/.media`. Notice the `.` which hides the folder, which can speed up the initial EmulationStation loading sequence when using slow storage such as network file systems.
+By default Steamscraper uses the `PLATFORM/media` folder when generating EmulationStation media. Setting this option will change that to `PLATFORM/.media`. Notice the `.` which hides the folder, which can speed up the initial EmulationStation loading sequence when using slow storage such as network file systems.
 
 NOTE 1! This option is ignored if you set the media folder manually.
 
@@ -91,8 +91,8 @@ NOTE 2! Remember to remove your old `PLATFORM/media` folders if you enable this 
 ###### Allowed in sections
 `[emulationstation]`
 
-#### cacheFolder="/home/pi/.skyscraper/cache"
-Sets a non-default location for the storing and loading of cached game resources. This is what is referred to in the docs as the *resource cache*. By default this folder is set to `/home/USER/.skyscraper/cache/<PLATFORM>`. Don't change this unless you have a good reason to (for instance if you want your cache to reside on a USB drive).
+#### cacheFolder="/home/pi/.steamscraper/cache"
+Sets a non-default location for the storing and loading of cached game resources. This is what is referred to in the docs as the *resource cache*. By default this folder is set to `/home/USER/.steamscraper/cache/<PLATFORM>`. Don't change this unless you have a good reason to (for instance if you want your cache to reside on a USB drive).
 
 NOTE! If this is set in the `[main]` section (recommended) it will automatically add `/<PLATFORM>` to the end of the path. If you want better control consider adding it to a `[<PLAFORM>]` section instead where it will be used as is.
 
@@ -100,9 +100,9 @@ NOTE! If this is set in the `[main]` section (recommended) it will automatically
 `[main]`, `[<PLATFORM>]`
 
 #### cacheResize="false"
-By default, to save space, Skyscraper resizes large pieces of artwork before adding them to the resource cache. Setting this option to `"false"` will disable this and save the artwork files with their original resolution. Beware that Skyscraper converts all artwork resources to lossless PNG's when saving them. High resolution images such as covers will take up a lot of space! So set this to `"false"` with caution.
+By default, to save space, Steamscraper resizes large pieces of artwork before adding them to the resource cache. Setting this option to `"false"` will disable this and save the artwork files with their original resolution. Beware that Steamscraper converts all artwork resources to lossless PNG's when saving them. High resolution images such as covers will take up a lot of space! So set this to `"false"` with caution.
 
-NOTE! This is not related to the artwork compositing that happens when generating a game list. This is *only* related to how Skyscraper handles artwork when adding it to the resource cache while gathering data from the scraping modules.
+NOTE! This is not related to the artwork compositing that happens when generating a game list. This is *only* related to how Steamscraper handles artwork when adding it to the resource cache while gathering data from the scraping modules.
 
 To read about artwork compositing go [here](ARTWORK.md) instead.
 
@@ -110,7 +110,7 @@ To read about artwork compositing go [here](ARTWORK.md) instead.
 `[main]`, `[<PLATFORM>]`, `[<SCRAPING MODULE>]`
 
 #### cacheRefresh="false"
-Skyscraper has a resource cache which works just like the browser cache in Firefox. If you scrape and gather resources for a platform with the same scraping module twice, it will grab the data from the cache instead of hammering the online servers again. This has the advantage in the case where you scrape a rom set twice, only the roms that weren't recognized the first time around will be fetched from the online servers. Everything else will be loaded from the cache.
+Steamscraper has a resource cache which works just like the browser cache in Firefox. If you scrape and gather resources for a platform with the same scraping module twice, it will grab the data from the cache instead of hammering the online servers again. This has the advantage in the case where you scrape a rom set twice, only the roms that weren't recognized the first time around will be fetched from the online servers. Everything else will be loaded from the cache.
 
 You can force all data to be refetched from the servers by setting this option to `cacheRefresh="true"`, effectively updating the cached data with new data from the source.
 
@@ -120,7 +120,7 @@ NOTE! *Only* set this option to true if you know data has changed for several ro
 `[main]`, `[<SCRAPING MODULE>]`
 
 #### nameTemplate="%t"
-By default Skyscraper uses just the title as the game name when generating gamelists for any frontend. You can change this to suit your personal preference by setting this option. It works by replacing certain tokens in the name template with the corresponding data. The valid tokens are:
+By default Steamscraper uses just the title as the game name when generating gamelists for any frontend. You can change this to suit your personal preference by setting this option. It works by replacing certain tokens in the name template with the corresponding data. The valid tokens are:
 
 * `%t`: The game title as returned by the scraping sources without bracket information (see `%b` and `%B` below)
 * `%f`: The game filename without extension and bracket information (see `%b` and `%B` below)
@@ -194,8 +194,8 @@ Enables/disables the caching of the resource type `hero` when scraping with any 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<SCRAPING MODULE>]`
 
-#### importFolder="/home/pi/.skyscraper/import"
-Sets a non-default folder when scraping using the `-s import` module. By default this is set to `/home/USER/.skyscraper/import` and will also look for a `/<PLATFORM>` inside of the chosen folder.
+#### importFolder="/home/pi/.steamscraper/import"
+Sets a non-default folder when scraping using the `-s import` module. By default this is set to `/home/USER/.steamscraper/import` and will also look for a `/<PLATFORM>` inside of the chosen folder.
 
 Read more about the `-s import` module [here](IMPORT.md).
 
@@ -211,7 +211,7 @@ NOTE! Only enable this option if you are having problems getting the roms identi
 `[main]`, `[<PLATFORM>]`
 
 #### frontend="emulationstation"
-Sets the frontend you wish to export a game list for. By default Skyscraper will export an EmulationStation game list, but other frontends are supported as well.
+Sets the frontend you wish to export a game list for. By default Steamscraper will export an EmulationStation game list, but other frontends are supported as well.
 
 If exporting for the `attractmode` frontend, please also take note of the required `emulator=""` option that goes along with using the `attractmode` frontend.
 
@@ -235,7 +235,7 @@ NOTE! This option is *only* applicable when also setting the `frontend="pegasus"
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### videos="false"
-By default Skyscraper doesn't scrape and cache video resources because of the significant disk space required to save them. You can enable videos using this option.
+By default Steamscraper doesn't scrape and cache video resources because of the significant disk space required to save them. You can enable videos using this option.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`, `[<SCRAPING MODULE>]`
@@ -247,21 +247,21 @@ If video scraping is enabled you can set the maximum allowed video file size wit
 `[main]`, `[<PLATFORM>]`, `[<MODULE>]`, `[<SCRAPING MODULE>]`
 
 #### videoConvertCommand="convertvideo.sh %i %o"
-Some scraping modules deliver videos that use a codec or color format that some frontends don't support. In those cases it can be useful to convert the videos before saving them in the Skyscraper resource cache.
+Some scraping modules deliver videos that use a codec or color format that some frontends don't support. In those cases it can be useful to convert the videos before saving them in the Steamscraper resource cache.
 
 This setting allows you to set a command that will be run on each video after it has been downloaded from the selected scraping module. See the examples below for inspiration.
 
-The `%i` and `%o` **are required** and will be replaced with the internally used video input (original) and output (converted) filenames as needed by Skyscraper.
+The `%i` and `%o` **are required** and will be replaced with the internally used video input (original) and output (converted) filenames as needed by Steamscraper.
 
 If your command / script always converts to a videofile with a specific extension, you also need to set `videoConvertExtension`.
 
-NOTE 1! Set `--verbosity 3` to route all output from your command / script to the terminal while Skyscraper runs. This will help you ensure everything is working as intended.
+NOTE 1! Set `--verbosity 3` to route all output from your command / script to the terminal while Steamscraper runs. This will help you ensure everything is working as intended.
 
 NOTE 2! The first example below makes use of the excellent `ffmpeg` tool. If you want to use this specific example you need to install `ffmpeg` first. On RetroPie and other Debian-derived distros you can install it with `sudo apt install ffmpeg`.
 
-NOTE 3! If you want to use a script for the video conversion and run it directly without path, you need to place it in the `/home/USER/.skyscraper` folder.
+NOTE 3! If you want to use a script for the video conversion and run it directly without path, you need to place it in the `/home/USER/.steamscraper` folder.
 
-NOTE 4! If you create a script that includes checks on the input video and it sometimes decides not to convert them, you should simply let the script copy the video with `cp %i %o`. The `%i` is a temporary file created internally by Skyscraper. And the `%o` file is the file used by the cache. Both files should exist after a successful conversion. Skyscraper removes the temporary `%i` file automatically.
+NOTE 4! If you create a script that includes checks on the input video and it sometimes decides not to convert them, you should simply let the script copy the video with `cp %i %o`. The `%i` is a temporary file created internally by Steamscraper. And the `%o` file is the file used by the cache. Both files should exist after a successful conversion. Steamscraper removes the temporary `%i` file automatically.
 
 ###### Example(s)
 ```
@@ -283,7 +283,7 @@ NOTE! It is up to you to make sure that the command you provide in `videoConvert
 `[main]`, `[<SCRAPING MODULE>]`
 
 #### videoPreferNormalized="true"
-This option is *only* applicable when scraping with the `-s screenscraper` module. ScreenScraper offers two versions of some of their videos. A normalized version, which adheres to some defined standard they made, and the originals. If you prefer converting or standardizing the videos yourself (see `videoConvertCommand` above) then you can set this to `false`. If you do so Skyscraper will fetch the original videos from ScreenScraper instead of the normalized ones.
+This option is *only* applicable when scraping with the `-s screenscraper` module. ScreenScraper offers two versions of some of their videos. A normalized version, which adheres to some defined standard they made, and the originals. If you prefer converting or standardizing the videos yourself (see `videoConvertCommand` above) then you can set this to `false`. If you do so Steamscraper will fetch the original videos from ScreenScraper instead of the normalized ones.
 
 NOTE! Be aware that the original videos often vary a lot in codec, color format and size. So it is recommended to convert them afterwards using the `videoConvertCommand`.
 
@@ -297,15 +297,15 @@ videoPreferNormalized="false"
 `[screenscraper]`
 
 #### symlink="false"
-Enabling this option is only relevant while also setting the `videos="true"` option. It basically means that Skyscraper will create a link to the cached videos instead of copying them when generating the game list media files. This will save a lot of space, but has the caveat that if you somehow remove the videos from the cache, the links will be broken and the videos then won't show anymore.
+Enabling this option is only relevant while also setting the `videos="true"` option. It basically means that Steamscraper will create a link to the cached videos instead of copying them when generating the game list media files. This will save a lot of space, but has the caveat that if you somehow remove the videos from the cache, the links will be broken and the videos then won't show anymore.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### theInFront="false"
-Game titles are returned from the scraping sources sometimes as 'The Game' and other times as 'Game, The'. Enabling this option will force Skyscraper to always try and move 'The' to the front of the titles. If it is not enabled, Skyscraper will always try and move it to the end of the title, regardless of how it was originally returned by the scraping sources.
+Game titles are returned from the scraping sources sometimes as 'The Game' and other times as 'Game, The'. Enabling this option will force Steamscraper to always try and move 'The' to the front of the titles. If it is not enabled, Steamscraper will always try and move it to the end of the title, regardless of how it was originally returned by the scraping sources.
 
-NOTE! When generating gamelists Skyscraper will still sort the games as if the game titles didn't have 'The' at the beginning.
+NOTE! When generating gamelists Steamscraper will still sort the games as if the game titles didn't have 'The' at the beginning.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
@@ -341,25 +341,25 @@ This option is *only* relevant when generating a game list (by leaving out the `
 `[main]`, `[<PLATFORM>]`
 
 #### unattend="true"
-When generating a game list Skyscraper will check if it already exists and ask if you want to overwrite it. And it will also ask if you wish to skip existing game list entries. By enabling this option Skyscraper will *always* overwrite an existing game list and *never* skip existing entries. This is useful when scripting Skyscraper to avoid the need for user input.
+When generating a game list Steamscraper will check if it already exists and ask if you want to overwrite it. And it will also ask if you wish to skip existing game list entries. By enabling this option Steamscraper will *always* overwrite an existing game list and *never* skip existing entries. This is useful when scripting Steamscraper to avoid the need for user input.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### unattendSkip="false"
-When generating a game list Skyscraper will check if it already exists and ask if you want to overwrite it. And it will also ask if you wish to skip existing game list entries. By enabling this option Skyscraper will *always* overwrite an existing game list and *always* skip existing entries. This is useful when scripting Skyscraper to avoid the need for user input.
+When generating a game list Steamscraper will check if it already exists and ask if you want to overwrite it. And it will also ask if you wish to skip existing game list entries. By enabling this option Steamscraper will *always* overwrite an existing game list and *always* skip existing entries. This is useful when scripting Steamscraper to avoid the need for user input.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### interactive="false"
-When gathering data from any of the scraping modules many potential entries will be returned. Normally Skyscraper chooses the best entry for you. But should you wish to choose the best entry yourself, you can enable this option. Skyscraper will then list the returned entries and let you choose which one is the best one. It is recommended to use the command line flag `--flags interactive` instead in the (hopefully) rare cases where this mode is necessary.
+When gathering data from any of the scraping modules many potential entries will be returned. Normally Steamscraper chooses the best entry for you. But should you wish to choose the best entry yourself, you can enable this option. Steamscraper will then list the returned entries and let you choose which one is the best one. It is recommended to use the command line flag `--flags interactive` instead in the (hopefully) rare cases where this mode is necessary.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<SCRAPING MODULE>]`
 
 #### forceFilename="false"
-Enable this option to force Skyscraper to use the file name (excluding extension) instead of the cached scraping module titles when generating a game list.
+Enable this option to force Steamscraper to use the file name (excluding extension) instead of the cached scraping module titles when generating a game list.
 
 NOTE! If you set `forceFilename="true"` and your filenames contain bracket notes such as `(this)` or `[that]` at the end, these will be combined with whatever bracket notes are at the end of the titles returned from the sources. This can cause some confusion. For instance, if you have the filename `Gran Turismo 2 (USA) (Arcade Mode)` and the cached title is `Gran Turismo 2 (Arcade Mode)`, then the gamelist name will become `Gran Turismo 2 (Arcade Mode)(USA)(Arcade Mode)`. You can disable them altogether with the `brackets="no"` option.
 
@@ -367,7 +367,7 @@ NOTE! If you set `forceFilename="true"` and your filenames contain bracket notes
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### verbosity="1"
-Sets how verbose Skyscraper should be when running. Default level is 0. The higher the value, the more info Skyscraper will output to the terminal while running.
+Sets how verbose Steamscraper should be when running. Default level is 0. The higher the value, the more info Steamscraper will output to the terminal while running.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
@@ -379,7 +379,7 @@ If a rom has no resources attached to it in the cache, it will be left out when 
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### maxFails="30"
-Not all scraping modules support all platforms. This means that you can potentially start a scraping run with a module and a platform that is incompatible. This will hammer the servers for potentially hundreds of roms but provide 0 results for any of them. To avoid this Skyscraper has a builtin limit for initially allowed failed rom lookups. If this is reached it will quit. Setting this option allows you to set this limit yourself, but not above a maximum of 200. The default limit is 42. Don't change this unless you have a very good reason to do so.
+Not all scraping modules support all platforms. This means that you can potentially start a scraping run with a module and a platform that is incompatible. This will hammer the servers for potentially hundreds of roms but provide 0 results for any of them. To avoid this Steamscraper has a builtin limit for initially allowed failed rom lookups. If this is reached it will quit. Setting this option allows you to set this limit yourself, but not above a maximum of 200. The default limit is 42. Don't change this unless you have a very good reason to do so.
 
 ###### Allowed in sections
 `[main]`
@@ -406,7 +406,7 @@ region="de"
 ```
 
 #### regionPrios="eu,us,ss,uk,wor,jp"
-Completely overwrites the internal region priority list inside of Skyscraper. Multiple regions can be configured here separated by commas.
+Completely overwrites the internal region priority list inside of Steamscraper. Multiple regions can be configured here separated by commas.
 
 NOTE 1! Read more about how regions are handled in general [here](REGIONS.md).
 
@@ -446,7 +446,7 @@ lang="it"
 ```
 
 #### langPrios="en,de,es"
-Completely overwrites the internal language priority list inside of Skyscraper. Multiple languages can be configured here separated by commas.
+Completely overwrites the internal language priority list inside of Steamscraper. Multiple languages can be configured here separated by commas.
 
 NOTE! Read more about how languages are handles in general [here](LANGUAGES.md).
 
@@ -465,7 +465,7 @@ langPrios="it,en"
 ```
 
 #### artworkXml="artwork.xml"
-Sets a non-default xml file to use when setting up the artwork compositing. By default Skyscraper uses the file `/home/USER/.skyscraper/artwork.xml`. Read more about the artwork.xml format and customization options [here](ARTWORK.md).
+Sets a non-default xml file to use when setting up the artwork compositing. By default Steamscraper uses the file `/home/USER/.steamscraper/artwork.xml`. Read more about the artwork.xml format and customization options [here](ARTWORK.md).
 
 NOTE! It can be *very* useful to set this in any platform section or frontend section where you want a specific artwork setup / look.
 
@@ -479,9 +479,9 @@ Currently only relevant when generating an EmulationStation game list (which is 
 `[main]`, `[<PLATFORM>]`
 
 #### extensions="*.zip *.uae *.adf"
-Completely overwrites the rom extensions Skyscraper allows for the chosen platform.
+Completely overwrites the rom extensions Steamscraper allows for the chosen platform.
 
-NOTE! If you feel like you are using a file extension that ought to be supported by default, please report it so it can be added in a later version of Skyscraper.
+NOTE! If you feel like you are using a file extension that ought to be supported by default, please report it so it can be added in a later version of Steamscraper.
 
 ###### Allowed in sections
 `[<PLATFORM>]`
@@ -489,19 +489,19 @@ NOTE! If you feel like you are using a file extension that ought to be supported
 #### addExtensions="*.zst *.smt"
 Adds the rom extensions to the ones that are already supported by the platform.
 
-NOTE! If you feel like you are using a file extension that ought to be supported by default, please report it so it can be added in a later version of Skyscraper.
+NOTE! If you feel like you are using a file extension that ought to be supported by default, please report it so it can be added in a later version of Steamscraper.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`
 
 #### hints="false"
-Disables the "Did you know" hints when running Skyscraper.
+Disables the "Did you know" hints when running Steamscraper.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`
 
 #### subdirs="true"
-By default Skyscraper will include roms located in subfolders. By disabling this option Skyscraper will only scrape the roms located directly in the input folder. See `inputFolder="<PATH>"` further up to read more about the rom input folder.
+By default Steamscraper will include roms located in subfolders. By disabling this option Steamscraper will only scrape the roms located directly in the input folder. See `inputFolder="<PATH>"` further up to read more about the rom input folder.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`
@@ -523,7 +523,7 @@ NOTE! Please consider using the command line option `--endat <FILENAME>` instead
 `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### includePattern="&lt;PATTERN1,PATTERN2&gt;"
-Per platform Skyscraper have default file extensions that it will accept. This option allows you to only include certain files within that scope. The pattern is a simple asterisk type pattern. In cases where you need to match for a comma you need to escape it as `\,`.
+Per platform Steamscraper have default file extensions that it will accept. This option allows you to only include certain files within that scope. The pattern is a simple asterisk type pattern. In cases where you need to match for a comma you need to escape it as `\,`.
 
 NOTE 1! You might also want to check out the file extension options.
 
@@ -533,19 +533,19 @@ NOTE 2! You might also want to check out the 'includeFrom' option.
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### excludePattern="&lt;PATTERN 1,PATTERN 2&gt;"
-Per platform Skyscraper have default file extensions that it will accept. This option allows you to exclude certain files within that scope. The pattern is a simple asterisk type pattern. In cases where you need to match for a comma you need to escape it as `\,`.
+Per platform Steamscraper have default file extensions that it will accept. This option allows you to exclude certain files within that scope. The pattern is a simple asterisk type pattern. In cases where you need to match for a comma you need to escape it as `\,`.
 
 NOTE 1! You might also want to check out the file extension options.
 
 NOTE 2! You might also want to check out the 'excludeFrom' option.
 
-NOTE 3! If you create a file named `.skyscraperignore` within any subfolder of the input dir, all files from that directory will be ignored by Skyscraper.
+NOTE 3! If you create a file named `.steamscraperignore` within any subfolder of the input dir, all files from that directory will be ignored by Steamscraper.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`, `[<FRONTEND>]`
 
 #### includeFrom="&lt;FILENAME&gt;"
-Tells Skyscraper to only include the files listed in FILENAME. One filename per line (with FULL path, eg. '/home/pi/RetroPie/roms/snes/subdir/somefile.zip').
+Tells Steamscraper to only include the files listed in FILENAME. One filename per line (with FULL path, eg. '/home/pi/RetroPie/roms/snes/subdir/somefile.zip').
 
 This file can be generated with the '--cache report:missing' option or made manually.
 
@@ -555,13 +555,13 @@ NOTE! You might also want to check out the 'includePattern' option.
 `[main]`, `[<PLATFORM>]`
 
 #### excludeFrom="&lt;FILENAME&gt;"
-Tells Skyscraper to exclude the files listed in FILENAME. One filename per line (with FULL path, eg. '/home/pi/RetroPie/roms/snes/subdir/somefile.zip').
+Tells Steamscraper to exclude the files listed in FILENAME. One filename per line (with FULL path, eg. '/home/pi/RetroPie/roms/snes/subdir/somefile.zip').
 
 This file can be generated with the '--cache report:missing' option or made manually.
 
 NOTE 1! You might also want to check out the 'excludePattern' option.
 
-NOTE 2! If you create a file named '.skyscraperignore' within any subfolder of the input dir, all files from that directory will be ignored by Skyscraper.
+NOTE 2! If you create a file named '.steamscraperignore' within any subfolder of the input dir, all files from that directory will be ignored by Steamscraper.
 
 ###### Allowed in sections
 `[main]`, `[<PLATFORM>]`
@@ -584,7 +584,7 @@ userCreds="key"
 `[<SCRAPING MODULE>]`
 
 #### spaceCheck="false"
-Skyscraper will continuously check if you are running low on disk space. If you go below 200 MB in either the game list export folder or the resource cache folder, it will quit to make sure your system doesn't become unstable. Some types of file systems provide a faulty result to Skyscraper when it comes to these checks and thus it can be necessary to disable it altogether. You can use this option to do just that.
+Steamscraper will continuously check if you are running low on disk space. If you go below 200 MB in either the game list export folder or the resource cache folder, it will quit to make sure your system doesn't become unstable. Some types of file systems provide a faulty result to Steamscraper when it comes to these checks and thus it can be necessary to disable it altogether. You can use this option to do just that.
 
 ###### Allowed in sections
 `[main]`

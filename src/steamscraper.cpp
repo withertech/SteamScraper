@@ -1,25 +1,25 @@
 /***************************************************************************
- *            skyscraper.cpp
+ *            steamscraper.cpp
  *
  *  Wed Jun 7 12:00:00 CEST 2017
  *  Copyright 2017 Lars Muldjord
  *  muldjordlars@gmail.com
  ****************************************************************************/
 /*
- *  This file is part of skyscraper.
+ *  This file is part of steamscraper.
  *
- *  skyscraper is free software; you can redistribute it and/or modify
+ *  steamscraper is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
  *
- *  skyscraper is distributed in the hope that it will be useful,
+ *  steamscraper is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with skyscraper; if not, write to the Free Software
+ *  along with steamscraper; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
  */
 
@@ -48,14 +48,14 @@
 
 #endif
 
-#include "skyscraper.h"
+#include "steamscraper.h"
 #include "strtools.h"
 
 #include "attractmode.h"
 #include "emulationstation.h"
 #include "pegasus.h"
 
-Skyscraper::Skyscraper(const QCommandLineParser &parser, const QString &currentDir)
+Steamscraper::Steamscraper(const QCommandLineParser &parser, const QString &currentDir)
 {
 	qRegisterMetaType<GameEntry>("GameEntry");
 
@@ -72,12 +72,12 @@ Skyscraper::Skyscraper(const QCommandLineParser &parser, const QString &currentD
 	loadConfig(parser);
 }
 
-Skyscraper::~Skyscraper()
+Steamscraper::~Steamscraper()
 {
 	delete frontend;
 }
 
-void Skyscraper::run()
+void Steamscraper::run()
 {
 	printf("Platform:           '\033[1;32m%s\033[0m'\n", config.platform.toStdString().c_str());
 	printf("Scraping module:    '\033[1;32m%s\033[0m'\n", config.scraper.toStdString().c_str());
@@ -145,7 +145,7 @@ void Skyscraper::run()
 		{
 			if (!cache->read() && config.scraper == "cache")
 			{
-				printf("No resources for this platform found in the resource cache. Please specify a scraping module with '-s' to gather some resources before trying to generate a game list. Check all available modules with '--help'. You can also run Skyscraper in simple mode by typing 'Skyscraper' and follow the instructions on screen.\n\n");
+				printf("No resources for this platform found in the resource cache. Please specify a scraping module with '-s' to gather some resources before trying to generate a game list. Check all available modules with '--help'. You can also run Steamscraper in simple mode by typing 'Steamscraper' and follow the instructions on screen.\n\n");
 				exit(1);
 			}
 		}
@@ -294,9 +294,12 @@ void Skyscraper::run()
 	// Create shared queue with files to process
 	queue = QSharedPointer<Queue>(new Queue());
 	QList<QFileInfo> infoList = inputDir.entryInfoList();
-	if (config.scraper != "cache" && QFileInfo::exists(config.inputFolder + "/.skyscraperignore"))
+	if (QFileInfo::exists(config.inputFolder + "/.steamscraperignore"))
 	{
-		infoList.clear();
+		if (config.scraper != "cache")
+		{
+			infoList.clear();
+		}
 	}
 	if (!config.startAt.isEmpty() && !infoList.isEmpty())
 	{
@@ -346,7 +349,7 @@ void Skyscraper::run()
 		while (dirIt.hasNext())
 		{
 			QString subdir = dirIt.next();
-			if (config.scraper != "cache" && QFileInfo::exists(subdir + "/.skyscraperignoretree"))
+			if (config.scraper != "cache" && QFileInfo::exists(subdir + "/.steamscraperignoretree"))
 			{
 				exclude = subdir;
 			}
@@ -360,7 +363,7 @@ void Skyscraper::run()
 			{
 				exclude.clear();
 			}
-			if (config.scraper != "cache" && QFileInfo::exists(subdir + "/.skyscraperignore"))
+			if (config.scraper != "cache" && QFileInfo::exists(subdir + "/.steamscraperignore"))
 			{
 				continue;
 			}
@@ -557,8 +560,8 @@ void Skyscraper::run()
 		ScraperWorker *worker = new ScraperWorker(queue, cache, manager, config, QString::number(curThread));
 		worker->moveToThread(thread);
 		connect(thread, &QThread::started, worker, &ScraperWorker::run);
-		connect(worker, &ScraperWorker::entryReady, this, &Skyscraper::entryReady);
-		connect(worker, &ScraperWorker::allDone, this, &Skyscraper::checkThreads);
+		connect(worker, &ScraperWorker::entryReady, this, &Steamscraper::entryReady);
+		connect(worker, &ScraperWorker::allDone, this, &Steamscraper::checkThreads);
 		connect(thread, &QThread::finished, worker, &ScraperWorker::deleteLater);
 		threadList.append(thread);
 		// Do not start more threads if we have less files than allowed threads
@@ -576,7 +579,7 @@ void Skyscraper::run()
 	}
 }
 
-void Skyscraper::checkForFolder(QDir &folder, bool create)
+void Steamscraper::checkForFolder(QDir &folder, bool create)
 {
 	if (!folder.exists())
 	{
@@ -603,7 +606,7 @@ void Skyscraper::checkForFolder(QDir &folder, bool create)
 	}
 }
 
-QString Skyscraper::secsToString(const int &secs)
+QString Steamscraper::secsToString(const int &secs)
 {
 	QString hours = QString::number(secs / 3600000 % 24);
 	QString minutes = QString::number(secs / 60000 % 60);
@@ -624,7 +627,7 @@ QString Skyscraper::secsToString(const int &secs)
 	return hours + ":" + minutes + ":" + seconds;
 }
 
-void Skyscraper::entryReady(const GameEntry &entry, const QString &output, const QString &debug)
+void Steamscraper::entryReady(const GameEntry &entry, const QString &output, const QString &debug)
 {
 	QMutexLocker locker(&entryMutex);
 
@@ -682,17 +685,17 @@ void Skyscraper::entryReady(const GameEntry &entry, const QString &output, const
 		if (config.scraper == "cache" && !config.pretend &&
 		    QStorageInfo(QDir(config.screenshotsFolder)).bytesFree() < spaceLimit)
 		{
-			printf("\033[1;31mYou have very little disk space left on the Skyscraper media export drive, please free up some space and try again. Now aborting...\033[0m\n\n");
+			printf("\033[1;31mYou have very little disk space left on the Steamscraper media export drive, please free up some space and try again. Now aborting...\033[0m\n\n");
 			printf("Note! You can disable this check by setting 'spaceCheck=\"false\"' in the '[main]' section of config.ini.\n\n");
-			// By clearing the queue here we basically tell Skyscraper to stop and quit nicely
+			// By clearing the queue here we basically tell Steamscraper to stop and quit nicely
 			config.pretend = true;
 			queue->clearAll();
 		}
 		else if (QStorageInfo(QDir(config.cacheFolder)).bytesFree() < spaceLimit)
 		{
-			printf("\033[1;31mYou have very little disk space left on the Skyscraper resource cache drive, please free up some space and try again. Now aborting...\033[0m\n\n");
+			printf("\033[1;31mYou have very little disk space left on the Steamscraper resource cache drive, please free up some space and try again. Now aborting...\033[0m\n\n");
 			printf("Note! You can disable this check by setting 'spaceCheck=\"false\"' in the '[main]' section of config.ini.\n\n");
-			// By clearing the queue here we basically tell Skyscraper to stop and quit nicely
+			// By clearing the queue here we basically tell Steamscraper to stop and quit nicely
 			config.pretend = true;
 			queue->clearAll();
 		}
@@ -700,7 +703,7 @@ void Skyscraper::entryReady(const GameEntry &entry, const QString &output, const
 #endif
 }
 
-void Skyscraper::checkThreads()
+void Steamscraper::checkThreads()
 {
 	QMutexLocker locker(&checkThreadMutex);
 
@@ -760,49 +763,49 @@ void Skyscraper::checkThreads()
 	}
 	printf("\033[1;34mTotal number of games: %d\033[0m\n", totalFiles);
 	printf("\033[1;32mSuccessfully processed games: %d\033[0m\n", found);
-	printf("\033[1;33mSkipped games: %d\033[0m (Filenames saved to '\033[1;33m/home/USER/.skyscraper/%s\033[0m')\n\n",
+	printf("\033[1;33mSkipped games: %d\033[0m (Filenames saved to '\033[1;33m/home/USER/.steamscraper/%s\033[0m')\n\n",
 	       notFound, skippedFileString.toStdString().c_str());
 
 	// All done, now clean up and exit to terminal
 	emit finished();
 }
 
-void Skyscraper::loadConfig(const QCommandLineParser &parser)
+void Steamscraper::loadConfig(const QCommandLineParser &parser)
 {
 	/* -----
 	   Files that should ALWAYS be updated from distributed default files
 	   ----- */
 
-	copyFile("/usr/local/etc/skyscraper/config.ini.example", "config.ini.example");
-	copyFile("/usr/local/etc/skyscraper/README.md", "README.md");
-	copyFile("/usr/local/etc/skyscraper/hints.xml", "hints.xml");
-	copyFile("/usr/local/etc/skyscraper/ARTWORK.md", "ARTWORK.md");
-	copyFile("/usr/local/etc/skyscraper/mameMap.csv", "mameMap.csv");
-	copyFile("/usr/local/etc/skyscraper/tgdb_developers.json", "tgdb_developers.json");
-	copyFile("/usr/local/etc/skyscraper/tgdb_publishers.json", "tgdb_publishers.json");
-	copyFile("/usr/local/etc/skyscraper/resources/boxfront.png", "resources/boxfront.png");
-	copyFile("/usr/local/etc/skyscraper/resources/boxside.png", "resources/boxside.png");
-	copyFile("/usr/local/etc/skyscraper/docs/CACHE.md", "cache/README.md");
-	copyFile("/usr/local/etc/skyscraper/cache/priorities.xml.example", "cache/priorities.xml.example");
-	copyFile("/usr/local/etc/skyscraper/import/IMPORT.md", "import/README.md");
-	copyFile("/usr/local/etc/skyscraper/import/definitions.dat.example1", "import/definitions.dat.example1");
-	copyFile("/usr/local/etc/skyscraper/import/definitions.dat.example2", "import/definitions.dat.example2");
+	copyFile(PREFIX "/etc/steamscraper/config.ini.example", "config.ini.example");
+	copyFile(PREFIX "/etc/steamscraper/README.md", "README.md");
+	copyFile(PREFIX "/etc/steamscraper/hints.xml", "hints.xml");
+	copyFile(PREFIX "/etc/steamscraper/ARTWORK.md", "ARTWORK.md");
+	copyFile(PREFIX "/etc/steamscraper/mameMap.csv", "mameMap.csv");
+	copyFile(PREFIX "/etc/steamscraper/tgdb_developers.json", "tgdb_developers.json");
+	copyFile(PREFIX "/etc/steamscraper/tgdb_publishers.json", "tgdb_publishers.json");
+	copyFile(PREFIX "/etc/steamscraper/resources/boxfront.png", "resources/boxfront.png");
+	copyFile(PREFIX "/etc/steamscraper/resources/boxside.png", "resources/boxside.png");
+	copyFile(PREFIX "/etc/steamscraper/docs/CACHE.md", "cache/README.md");
+	copyFile(PREFIX "/etc/steamscraper/cache/priorities.xml.example", "cache/priorities.xml.example");
+	copyFile(PREFIX "/etc/steamscraper/import/IMPORT.md", "import/README.md");
+	copyFile(PREFIX "/etc/steamscraper/import/definitions.dat.example1", "import/definitions.dat.example1");
+	copyFile(PREFIX "/etc/steamscraper/import/definitions.dat.example2", "import/definitions.dat.example2");
 
 	/* -----
 	   Files that will only be overwritten if they don't already exist
 	   ----- */
 
 	// Make sure we have a default config.ini file based on the config.ini.example file
-	copyFile("/usr/local/etc/skyscraper/config.ini.example", "config.ini", false);
-	copyFile("/usr/local/etc/skyscraper/artwork.xml", "artwork.xml",
+	copyFile(PREFIX "/etc/steamscraper/config.ini.example", "config.ini", false);
+	copyFile(PREFIX "/etc/steamscraper/artwork.xml", "artwork.xml",
 	         false);// False means it won't overwrite if it exists
-	copyFile("/usr/local/etc/skyscraper/aliasMap.csv", "aliasMap.csv", false);
-	copyFile("/usr/local/etc/skyscraper/resources/maskexample.png", "resources/maskexample.png", false);
-	copyFile("/usr/local/etc/skyscraper/resources/frameexample.png", "resources/frameexample.png", false);
-	copyFile("/usr/local/etc/skyscraper/resources/scanlines1.png", "resources/scanlines1.png", false);
-	copyFile("/usr/local/etc/skyscraper/resources/scanlines2.png", "resources/scanlines2.png", false);
+	copyFile(PREFIX "/etc/steamscraper/aliasMap.csv", "aliasMap.csv", false);
+	copyFile(PREFIX "/etc/steamscraper/resources/maskexample.png", "resources/maskexample.png", false);
+	copyFile(PREFIX "/etc/steamscraper/resources/frameexample.png", "resources/frameexample.png", false);
+	copyFile(PREFIX "/etc/steamscraper/resources/scanlines1.png", "resources/scanlines1.png", false);
+	copyFile(PREFIX "/etc/steamscraper/resources/scanlines2.png", "resources/scanlines2.png", false);
 	// Copy one of the example definitions.dat files if none exists
-	copyFile("/usr/local/etc/skyscraper/import/definitions.dat.example2", "import/definitions.dat", false);
+	copyFile(PREFIX "/etc/steamscraper/import/definitions.dat.example2", "import/definitions.dat", false);
 
 	/* -----
 	   END updating files from distribution files
@@ -1601,7 +1604,7 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
 			printf("  \033[1;33mnobrackets\033[0m: Disables any [] and () tags in the frontend game titles. Consider using 'nameTemplate' config.ini option instead.\n");
 			printf("  \033[1;33mnocovers\033[0m: Disable covers/boxart from being cached locally. Only do this if you do not plan to use the cover artwork in 'artwork.xml'\n");
 			printf("  \033[1;33mnocropblack\033[0m: Disables cropping away black borders around screenshot resources when compositing the final gamelist artwork.\n");
-			printf("  \033[1;33mnohints\033[0m: Disables the 'DID YOU KNOW:' hints when running Skyscraper.\n");
+			printf("  \033[1;33mnohints\033[0m: Disables the 'DID YOU KNOW:' hints when running Steamscraper.\n");
 			printf("  \033[1;33mnomarquees\033[0m: Disable marquees from being cached locally. Only do this if you do not plan to use the marquee artwork in 'artwork.xml'\n");
 			printf("  \033[1;33mnosteamgrids\033[0m: Disable steamgrids from being cached locally. Only do this if you do not plan to use the steamgrid artwork in 'artwork.xml'\n");
 			printf("  \033[1;33mnoheroes\033[0m: Disable heroes from being cached locally. Only do this if you do not plan to use the hero artwork in 'artwork.xml'\n");
@@ -1609,7 +1612,7 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
 			printf("  \033[1;33mnoscreenshots\033[0m: Disable screenshots/snaps from being cached locally. Only do this if you do not plan to use the screenshot artwork in 'artwork.xml'\n");
 			printf("  \033[1;33mnosubdirs\033[0m: Do not include input folder subdirectories when scraping.\n");
 			printf("  \033[1;33mnologos\033[0m: Disable logos from being cached locally. Only do this if you do not plan to use the wheel artwork in 'artwork.xml'\n");
-			printf("  \033[1;33monlymissing\033[0m: Tells Skyscraper to skip all files which already have any data from any source in the cache.\n");
+			printf("  \033[1;33monlymissing\033[0m: Tells Steamscraper to skip all files which already have any data from any source in the cache.\n");
 			printf("  \033[1;33mpretend\033[0m: Only relevant when generating a game list. It disables the game list generator and artwork compositor and only outputs the results of the potential game list generation to the terminal. Use it to check what and how the data will be combined from cached resources.\n");
 			printf("  \033[1;33mrelative\033[0m: Forces all gamelist paths to be relative to rom location.\n");
 			printf("  \033[1;33mskipexistingcovers\033[0m: When generating gamelists, skip processing covers that already exist in the media output folder.\n");
@@ -1622,7 +1625,7 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
 			printf("  \033[1;33mskipexistinglogos\033[0m: When generating gamelists, skip processing logos that already exist in the media output folder.\n");
 			printf("  \033[1;33mskipped\033[0m: When generating a gamelist, also include games that do not have any cached data.\n");
 			printf("  \033[1;33msymlink\033[0m: Forces cached videos to be symlinked to game list destination to save space. WARNING! Deleting or moving files from your cache can invalidate the links!\n");
-			printf("  \033[1;33mtheinfront\033[0m: Forces Skyscraper to always try and move 'The' to the beginning of the game title when generating gamelists. By default 'The' will be moved to the end of the game titles.\n");
+			printf("  \033[1;33mtheinfront\033[0m: Forces Steamscraper to always try and move 'The' to the beginning of the game title when generating gamelists. By default 'The' will be moved to the end of the game titles.\n");
 			printf("  \033[1;33munattend\033[0m: Skip initial questions when scraping. It will then always overwrite existing gamelist and not skip existing entries.\n");
 			printf("  \033[1;33munattendskip\033[0m: Skip initial questions when scraping. It will then always overwrite existing gamelist and always skip existing entries.\n");
 			printf("  \033[1;33munpack\033[0m: Unpacks and checksums the file inside 7z or zip files instead of the compressed file itself. Be aware that this option requires '7z' to be installed on the system to work. Only relevant for 'screenscraper' scraping module.\n");
@@ -2154,7 +2157,7 @@ void Skyscraper::loadConfig(const QCommandLineParser &parser)
 	}
 }
 
-void Skyscraper::copyFile(const QString &distro, const QString &current, bool overwrite)
+void Steamscraper::copyFile(const QString &distro, const QString &current, bool overwrite)
 {
 	if (QFileInfo::exists(distro))
 	{
@@ -2173,7 +2176,7 @@ void Skyscraper::copyFile(const QString &distro, const QString &current, bool ov
 	}
 }
 
-void Skyscraper::showHint()
+void Steamscraper::showHint()
 {
 	QFile hintsFile("hints.xml");
 	QDomDocument hintsXml;
@@ -2199,7 +2202,7 @@ void Skyscraper::showHint()
 #endif
 }
 
-void Skyscraper::doPrescrapeJobs()
+void Steamscraper::doPrescrapeJobs()
 {
 	loadAliasMap();
 	loadMameMap();
@@ -2256,7 +2259,7 @@ void Skyscraper::doPrescrapeJobs()
 		}
 		if (config.user.isEmpty() || config.password.isEmpty())
 		{
-			printf("The IGDB scraping module requires free user credentials to work. Read more about that here: 'https://github.com/muldjord/skyscraper/blob/master/docs/SCRAPINGMODULES.md#igdb'\n");
+			printf("The IGDB scraping module requires free user credentials to work. Read more about that here: 'https://github.com/withertech/steamscraper/blob/master/docs/SCRAPINGMODULES.md#igdb'\n");
 			exit(1);
 		}
 		printf("Fetching IGDB authentication token status, just a sec...\n");
@@ -2308,7 +2311,7 @@ void Skyscraper::doPrescrapeJobs()
 			}
 			else
 			{
-				printf("\033[1;33mReceived invalid IGDB server response. This can be caused by server issues or maybe you entered your credentials incorrectly in the Skyscraper configuration. Read more about that here: 'https://github.com/muldjord/skyscraper/blob/master/docs/SCRAPINGMODULES.md#igdb'\033[0m\n");
+				printf("\033[1;33mReceived invalid IGDB server response. This can be caused by server issues or maybe you entered your credentials incorrectly in the Steamscraper configuration. Read more about that here: 'https://github.com/withertech/steamscraper/blob/master/docs/SCRAPINGMODULES.md#igdb'\033[0m\n");
 				exit(1);
 			}
 		}
@@ -2320,7 +2323,7 @@ void Skyscraper::doPrescrapeJobs()
 	}
 	else if (config.scraper == "mobygames" && config.threads != 1)
 	{
-		printf("\033[1;33mForcing 1 thread to accomodate limits in MobyGames scraping module. Also be aware that MobyGames has a request limit of 360 requests per hour for the entire Skyscraper user base. So if someone else is currently using it, it will quit.\033[0m\n\n");
+		printf("\033[1;33mForcing 1 thread to accomodate limits in MobyGames scraping module. Also be aware that MobyGames has a request limit of 360 requests per hour for the entire Steamscraper user base. So if someone else is currently using it, it will quit.\033[0m\n\n");
 		config.threads = 1;  // Don't change! This limit was set by request from Mobygames
 		config.romLimit = 35;// Don't change! This limit was set by request from Mobygames
 	}
@@ -2330,7 +2333,7 @@ void Skyscraper::doPrescrapeJobs()
 		{
 			if (config.threads > 1)
 			{
-				printf("\033[1;33mForcing 1 threads as this is the anonymous limit in the ScreenScraper scraping module. Sign up for an account at https://www.screenscraper.fr and support them to gain more threads. Then use the credentials with Skyscraper using the '-u user:password' command line option or by setting 'userCreds=\"user:password\"' in '/home/USER/.skyscraper/config.ini'.\033[0m\n\n");
+				printf("\033[1;33mForcing 1 threads as this is the anonymous limit in the ScreenScraper scraping module. Sign up for an account at https://www.screenscraper.fr and support them to gain more threads. Then use the credentials with Steamscraper using the '-u user:password' command line option or by setting 'userCreds=\"user:password\"' in '/home/USER/.steamscraper/config.ini'.\033[0m\n\n");
 				config.threads = 1;// Don't change! This limit was set by request from ScreenScraper
 			}
 		}
@@ -2340,7 +2343,7 @@ void Skyscraper::doPrescrapeJobs()
 			       config.user.toStdString().c_str());
 			netComm.request("https://www.screenscraper.fr/api2/ssuserInfos.php?devid=muldjord&devpassword=" +
 			                StrTools::unMagic("204;198;236;130;203;181;203;126;191;167;200;198;192;228;169;156") +
-			                "&softname=skyscraper" VERSION "&output=json&ssid=" + config.user + "&sspassword=" +
+			                "&softname=steamscraper" VERSION "&output=json&ssid=" + config.user + "&sspassword=" +
 			                config.password);
 			q.exec();
 			QJsonObject jsonObj = QJsonDocument::fromJson(netComm.getData()).object();
@@ -2348,7 +2351,7 @@ void Skyscraper::doPrescrapeJobs()
 			{
 				if (netComm.getData().contains("Erreur de login"))
 				{
-					printf("\033[0;31mScreenScraper login error! Please verify that you've entered your credentials correctly in '/home/USER/.skyscraper/config.ini'. It needs to look EXACTLY like this, but with your USER and PASS:\033[0m\n\033[1;33m[screenscraper]\nuserCreds=\"USER:PASS\"\033[0m\033[0;31m\nContinuing with unregistered user, forcing 1 thread...\033[0m\n\n");
+					printf("\033[0;31mScreenScraper login error! Please verify that you've entered your credentials correctly in '/home/USER/.steamscraper/config.ini'. It needs to look EXACTLY like this, but with your USER and PASS:\033[0m\n\033[1;33m[screenscraper]\nuserCreds=\"USER:PASS\"\033[0m\033[0;31m\nContinuing with unregistered user, forcing 1 thread...\033[0m\n\n");
 				}
 				else
 				{
@@ -2378,7 +2381,7 @@ void Skyscraper::doPrescrapeJobs()
 	}
 }
 
-void Skyscraper::loadAliasMap()
+void Steamscraper::loadAliasMap()
 {
 	if (!QFileInfo::exists("aliasMap.csv"))
 		return;
@@ -2403,7 +2406,7 @@ void Skyscraper::loadAliasMap()
 	}
 }
 
-void Skyscraper::loadMameMap()
+void Steamscraper::loadMameMap()
 {
 	if (config.scraper != "import" &&
 	    (config.platform == "neogeo" ||
@@ -2433,7 +2436,7 @@ void Skyscraper::loadMameMap()
 }
 
 
-void Skyscraper::loadWhdLoadMap()
+void Steamscraper::loadWhdLoadMap()
 {
 	if (config.platform == "amiga")
 	{
@@ -2467,7 +2470,7 @@ void Skyscraper::loadWhdLoadMap()
 	}
 }
 
-void Skyscraper::setRegionPrios()
+void Steamscraper::setRegionPrios()
 {
 	// Load single custom region
 	if (!config.region.isEmpty())
@@ -2515,7 +2518,7 @@ void Skyscraper::setRegionPrios()
 	}
 }
 
-void Skyscraper::setLangPrios()
+void Steamscraper::setLangPrios()
 {
 	// Load single custom lang
 	if (!config.lang.isEmpty())

@@ -1,30 +1,32 @@
-# SteamScraper by Witherking25, a fork of Skyscraper by Lars Muldjord
-A powerful and versatile yet easy to use game scraper written in C++ for use with multiple frontends running on a Linux system (macOS and Windows too, but not officially supported). It scrapes and caches various game resources from various scraping sources, including media such as screenshot, cover and video. It then gives you the option to generate a game list and artwork for the chosen frontend by combining all of the cached resources.
+# Steamscraper by Witherking25, a fork of Skyscraper by Lars Muldjord
+A powerful and versatile yet easy to use game scraper written in C++ for use with multiple frontends running on a Linux system (macOS and Windows too, but not officially supported). It scrapes and caches various game resources from various scraping sources, including media such as screenshot, cover and video. It then gives you the option to generate a game list and artwork for the chosen frontend by combining all the cached resources.
 
-All Skyscraper features are [well-documented](https://github.com/withertech/SteamScraper/tree/master/docs) and there's also a [F.A.Q](https://github.com/withertech/SteamScraper/blob/master/docs/FAQ.md). If you still have questions after reading the documentation, please consider asking them on the [RetroPie subreddit](https://www.reddit.com/r/RetroPie/) or in the official [RetroPie forums](https://retropie.org.uk/forum). The `Issues` page here on Github is for bug reports and feature requests only. Thanks!
+All Steamscraper features are [well-documented](https://github.com/withertech/steamscraper/tree/master/docs) and there's also a [F.A.Q](https://github.com/withertech/SteamScraper/blob/master/docs/FAQ.md). If you still have questions after reading the documentation, please consider asking them on the [RetroPie subreddit](https://www.reddit.com/r/RetroPie/) or in the official [RetroPie forums](https://retropie.org.uk/forum). The `Issues` page here on Github is for bug reports and feature requests only. Thanks!
 
 ##### Code contributions
-Pull Requests are not currently accepted. Due to wanting to pursue other projects after having worked on Skyscraper for 3 years, I am currently only fixing scraper-breaking bugs in Skyscraper. For any functionality beyond what is already in place, feel free to fork Skyscraper and fit it to your needs. I am no longer actively considering or commenting user feature requests or pull requests. When / if this changes, this text will be updated.
+>Pull Requests are not currently accepted. Due to wanting to pursue other projects after having worked on Skyscraper for 3 years, I am currently only fixing scraper-breaking bugs in Skyscraper. For any functionality beyond what is already in place, feel free to fork Skyscraper and fit it to your needs. I am no longer actively considering or commenting user feature requests or pull requests. When / if this changes, this text will be updated.
+
+This is what is on the upstream. I will gladly accept pull requests and other suggestions in this fork within reason. 
 
 #### Supported platforms (set with '-p'):
 Check the full list of platforms [here](docs/PLATFORMS.md).
 
 #### Supported scraping modules (set with '-s')
-Skyscraper supports a variety of different scraping sources called *scraping modules*. Use these to gather game data into the Skyscraper resource cache. Check the full list of scraping modules [here](docs/SCRAPINGMODULES.md) and read more about the resource cache [here](docs/CACHE.md).
+Steamscraper supports a variety of different scraping sources called *scraping modules*. Use these to gather game data into the Steamscraper resource cache. Check the full list of scraping modules [here](docs/SCRAPINGMODULES.md) and read more about the resource cache [here](docs/CACHE.md).
 
 #### Supported frontends (set with '-f'):
 * EmulationStation
 * AttractMode
 * Pegasus
 
-## How to install Skyscraper
-Follow the steps below to install the latest version of Skyscraper. Lines beginning with `$` signifies a command you need run in a terminal on the machine you wish to install it on.
+## How to install Steamscraper
+Follow the steps below to install the latest version of Steamscraper. Lines beginning with `$` signifies a command you need run in a terminal on the machine you wish to install it on.
 
-NOTE! If you are using the RetroPie distribution, you have the option to install Skyscraper directly from the RetroPie-Setup script (*you need to update the script before installing it!*). Read more about all of that [here](https://retropie.org.uk/docs/Scraper/#lars-muldjords-skyscraper). If not, read on.
+NOTE! If you are using the RetroPie distribution, you have the option to install Steamscraper directly from the RetroPie-Setup script (*you need to update the script before installing it!*). Read more about all of that [here](https://retropie.org.uk/docs/Scraper/#lars-muldjords-skyscraper). If not, read on.
 
 ### Install prerequisites
 #### Linux
-Skyscraper needs Qt5.3 or later to compile. For a Retropie, Ubuntu or other Debian derived distro, you can install Qt5 using the following commands:
+Steamscraper needs Qt5.3 or later to compile. For a Retropie, Ubuntu or other Debian derived distro, you can install Qt5 using the following commands:
 ```
 $ sudo apt update
 $ sudo apt install build-essential qt5-default
@@ -34,7 +36,7 @@ You might be asked for your sudo password. On RetroPie the default password is `
 NOTE! From Ubuntu 21.04 and forward the `qt5-default` metapackage no longer exists. You will instead have to do `sudo apt install build-essential qtbase5-dev qt5-qmake qtbase5-dev-tools` which installs the same as the above command.
 
 #### macOS
-Skyscraper works perfectly on macOS as well but is not officially supported as I don't own a Mac. But with the help of HoraceAndTheSpider and abritinthebay here's the commands needed to install the Qt5 and other prerequisites:
+Steamscraper works perfectly on macOS as well but is not officially supported as I don't own a Mac. But with the help of HoraceAndTheSpider and abritinthebay here's the commands needed to install the Qt5 and other prerequisites:
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 $ brew install gnu-tar --with-default-names
@@ -42,26 +44,26 @@ $ brew install wget
 $ brew install qt5
 $ brew link qt5 --force
 ```
-If that went well, proceed to the default installation instructions below. It should work and give you a working installation of Skyscraper.
+If that went well, proceed to the default installation instructions below. It should work and give you a working installation of Steamscraper.
 
 NOTE 1! User 'davidmgrantham' reports that the `--with-default-names` above might be deprecated for some macOS installations. If you remove it, you also need to download the `update_steamscraper.sh` and edit the `tar` commands to be `gtar` before running it.
 
 NOTE 2! User 'trvrplk' reports numerous issues on MacOS 11.2+. Check [here](https://github.com/muldjord/skyscraper/issues/301) for potential fixes.
 
 ### Download, compile and install
-When you've installed the prerequisites as described above, you can install Skyscraper by typing in the following commands:
+When you've installed the prerequisites as described above, you can install Steamscraper by typing in the following commands:
 ```
 $ cd
 $ mkdir skysource
 $ cd skysource
-$ wget -q -O - https://raw.githubusercontent.com/withertech/SteamScraper/master/update_steamscraper.sh | bash
+$ wget -q -O - https://raw.githubusercontent.com/withertech/steamscraper/master/update_steamscraper.sh | bash
 ```
 The last command will download and run the latest update script from Github. During the installation you might be asked for your sudo password. On RetroPie the default password is `raspberry`.
 
-When the script has completed you are ready to run Skyscraper!
+When the script has completed you are ready to run Steamscraper!
 
-### Updating Skyscraper
-From Skyscraper 2.3.2 and newer you can update to the latest version simply by running the following commands:
+### Updating Steamscraper
+From Steamscraper 2.3.2 and newer you can update to the latest version simply by running the following commands:
 ```
 $ cd
 $ cd skysource
@@ -69,37 +71,37 @@ $ ./update_steamscraper.sh
 ```
 You might be asked for your sudo password during the update. On RetroPie the default password is `raspberry`. If your version is older than 2.3.2 (check with `--help`) you need to follow the [installation instructions](#download-compile-and-install) instead.
 
-### How to uninstall Skyscraper
-If you've installed Skyscraper using the instructions in this readme, you can uninstall it using the following commands:
+### How to uninstall Steamscraper
+If you've installed Steamscraper using the instructions in this readme, you can uninstall it using the following commands:
 ```
 $ cd
 $ cd skysource
 $ sudo make uninstall
 $ cd
 $ rm -Rf skysource
-$ rm -Rf .skyscraper
+$ rm -Rf .steamscraper
 ```
 You might be asked for your sudo password during the processs. On RetroPie the default password is `raspberry`.
 
 ### Windows
-Windows is not officially supported at this time! But I do semi-regularly compile and release an unsupported Windows 64-bit version that works just fine. Be sure to read the included README from the downloaded file before using it! And just to be clear: You are on your own if you use this version - please don't ask me questions about it. Get the Windows version [here](https://github.com/muldjord/skyscraper/releases/download/3.6.12/Skyscraper_3.6.12_unsupported_win_version.zip).
+Windows is not officially supported at this time! But I do semi-regularly compile and release an unsupported Windows 64-bit version that works just fine. Be sure to read the included README from the downloaded file before using it! And just to be clear: You are on your own if you use this version - please don't ask me questions about it. Get the Windows version [here](https://github.com/muldjord/skyscraper/releases/download/3.6.12/Steamscraper_3.6.12_unsupported_win_version.zip).
 
-## How to use Skyscraper
-IMPORTANT!!! In order for Skyscraper to work properly, it is necessary to quit your frontend before running it! If you're running EmulationStation, you can quit it by pressing F4.
+## How to use Steamscraper
+IMPORTANT!!! In order for Steamscraper to work properly, it is necessary to quit your frontend before running it! If you're running EmulationStation, you can quit it by pressing F4.
 
-Remember, you can completely customize the artwork Skyscraper exports. Check out the documentation [here](docs/ARTWORK.md). If you just want to use the default (pretty cool looking) artwork Skyscraper provides, read on.
+Remember, you can completely customize the artwork Steamscraper exports. Check out the documentation [here](docs/ARTWORK.md). If you just want to use the default (pretty cool looking) artwork Steamscraper provides, read on.
 
 ### A simple use case
 For first-time users I recommend reading the short and to-the-point [use case](docs/USECASE.md). Please read it and get back here when you got the gist of it.
 
-### A quick run-down of Skyscraper
-Skyscraper is a command line tool, and has many, many options for you to fiddle around with. I recommend taking a look at all of them to familiarize yourself with the possibilites:
+### A quick run-down of Steamscraper
+Steamscraper is a command line tool, and has many, many options for you to fiddle around with. I recommend taking a look at all of them to familiarize yourself with the possibilites:
 ```
-$ Skyscraper --help
-$ Skyscraper --flags help
-$ Skyscraper --cache help
+$ Steamscraper --help
+$ Steamscraper --flags help
+$ Steamscraper --cache help
 ```
-This will give you a description of everything Skyscraper can do if you feel adventurous! For a thorough description of all available options, check [here](docs/CLIHELP.md).
+This will give you a description of everything Steamscraper can do if you feel adventurous! For a thorough description of all available options, check [here](docs/CLIHELP.md).
 
 The most important ones are probably:
 * `-p <PLATFORM>`
@@ -113,21 +115,21 @@ If you have your roms in a non-default location (default for RetroPie users is `
 * `-g <PATH>`
 * `-o <PATH>`
 
-For almost any command line option, consider setting them in the `/home/USER/.skyscraper/config.ini` file as described [here](docs/CONFIGINI.md). This will make the options permanent so you don't need to type them in all the time.
+For almost any command line option, consider setting them in the `/home/USER/.steamscraper/config.ini` file as described [here](docs/CONFIGINI.md). This will make the options permanent so you don't need to type them in all the time.
 
 #### Gathering data for a subset of roms
-Skyscraper offers several ways of gathering data for a subset of roms. If you just want to scrape the roms that have no data in the cache whatsoever, you can do so with the `--onlymissing` command-line option. You can also check out the `--startat FILENAME` and `--endat FILENAME` options. If you just want to gather data for a couple of roms you can simply add the filename(s) to the end of the command-line (eg. `Skyscraper -p amiga -s openretro "/path/to/rom name 1.lha" "/path/to/rom name 2.lha"`). And probably the most advanced (and quite handy) way to gather data for a subset of roms is to make use of the `--cache report:missing=RESOURCE` option. This can generate a report containing the filenames that are missing a certain resource. You can then feed the report back into Skyscraper with the `--fromfile REPORTFILE` afterwards. Skyscraper will then only scrape the files contained in the report.
+Steamscraper offers several ways of gathering data for a subset of roms. If you just want to scrape the roms that have no data in the cache whatsoever, you can do so with the `--onlymissing` command-line option. You can also check out the `--startat FILENAME` and `--endat FILENAME` options. If you just want to gather data for a couple of roms you can simply add the filename(s) to the end of the command-line (eg. `Steamscraper -p amiga -s openretro "/path/to/rom name 1.lha" "/path/to/rom name 2.lha"`). And probably the most advanced (and quite handy) way to gather data for a subset of roms is to make use of the `--cache report:missing=RESOURCE` option. This can generate a report containing the filenames that are missing a certain resource. You can then feed the report back into Steamscraper with the `--fromfile REPORTFILE` afterwards. Steamscraper will then only scrape the files contained in the report.
 
 ### config.ini
-A lesser known, but extremely useful, feature of Skyscraper is to add your desired config variables to `/home/USER/.skyscraper/config.ini`. Any options set in this file will be used by default by Skyscraper. So if you always use, for example, `-i <SOME FOLDER>` on command line, you can set the matching option `inputFolder="<SOME FOLDER>"` in the config.
+A lesser known, but extremely useful, feature of Steamscraper is to add your desired config variables to `/home/USER/.steamscraper/config.ini`. Any options set in this file will be used by default by Steamscraper. So if you always use, for example, `-i <SOME FOLDER>` on command line, you can set the matching option `inputFolder="<SOME FOLDER>"` in the config.
 
 For a full description of all availabe config options, check [here](docs/CONFIGINI.md).
 
 ### Resource cache
-One of Skyscraper's most powerful features is the resource cache. It's important to understand how this works in order to use Skyscraper to its full potential. Read more about it [here](docs/CACHE.md).
+One of Steamscraper's most powerful features is the resource cache. It's important to understand how this works in order to use Steamscraper to its full potential. Read more about it [here](docs/CACHE.md).
 
 ### Custom data
-I addition to allowing scraping from locally cached resources, Skyscraper also allows you to import your own data into the resource cache with the `-s import` scraping module. You can also edit existing resources in the cache or add individual `user` resources with the `--cache edit` command. Lastly, you also have the option of importing existing EmulationStation game list data into the Skyscraper resource cache if you need it. You can do this with the `-s esgamelist` scraping module.
+I addition to allowing scraping from locally cached resources, Steamscraper also allows you to import your own data into the resource cache with the `-s import` scraping module. You can also edit existing resources in the cache or add individual `user` resources with the `--cache edit` command. Lastly, you also have the option of importing existing EmulationStation game list data into the Steamscraper resource cache if you need it. You can do this with the `-s esgamelist` scraping module.
 
 To read more about any of the features described above, please check out all of the documentation [here](https://github.com/muldjord/skyscraper/tree/master/docs).
 
@@ -158,17 +160,17 @@ Check the full artwork documentation [here](docs/ARTWORK.md)
 * Added 'switch' platform (Thank you to user 'Redemp' for providing info)
 
 #### Version 3.7.2 (20th January 2022)
-* Skyscraper now only ignore files when using the '.skyscraperignore[tree]' files when scraping for new data. They will NOT be ignored when generating game lists
+* Steamscraper now only ignore files when using the '.steamscraperignore[tree]' files when scraping for new data. They will NOT be ignored when generating game lists
 
 #### Version 3.7.1 (19th January 2022)
-* Skyscraper will now ignore an entire tree of subfolders where a file called '.skyscraperignoretree' is found (Thank you to user 'sromeroi' for suggesting this)
+* Steamscraper will now ignore an entire tree of subfolders where a file called '.steamscraperignoretree' is found (Thank you to user 'sromeroi' for suggesting this)
 
 #### Version 3.7.0 (17th January 2022)
 * Moved '--fromfile' option to '--includefrom'. '--fromfile' still works, but is considered deprecated
 * Moved '--includefiles' option to '--includepattern'. '--includefiles' still works, but is considered deprecated
 * Moved '--excludefiles' option to '--excludepattern'. '--excludefiles' still works, but is considered deprecated
 * Added '--excludefrom' option similar to '--includefrom' only the opposite (Thank you to user 'TomFury' for suggesting this)
-* Skyscraper will now ignore any subfolders within the input folder where a file called '.skyscraperignore' is found (Thank you to user 'sromeroi' for suggesting this)
+* Steamscraper will now ignore any subfolders within the input folder where a file called '.steamscraperignore' is found (Thank you to user 'sromeroi' for suggesting this)
 * Added platform 'easyrpg', only usable using the 'screenscraper' scraping module (Thank you to user 'zerojay' for suggesting this)
 
 #### Version 3.6.16 (9th November 2021)

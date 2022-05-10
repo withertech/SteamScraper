@@ -1,5 +1,5 @@
 ## Languages
-Some game information comes in several languages. Skyscraper provides several ways of configuring these for your convenience. It is important to understand the distinction between game region and language. Setting a language is a user-preferred thing and will only affect the game descriptions and tags (genres). The remaining game data is tied to the region instead (artwork and, in some cases, the game name).
+Some game information comes in several languages. Steamscraper provides several ways of configuring these for your convenience. It is important to understand the distinction between game region and language. Setting a language is a user-preferred thing and will only affect the game descriptions and tags (genres). The remaining game data is tied to the region instead (artwork and, in some cases, the game name).
 
 ## Scraping modules that support languages
 * screenscraper (game description and tags / genres)
@@ -31,7 +31,7 @@ When configuring languages be sure to use the short-names as shown (eg. 'no' for
 * tr: Turkish (screenscraper)
 
 ### Default language prioritization
-Skyscraper's default internal language priority list is as follows. Topmost language has highest priority and so forth.
+Steamscraper's default internal language priority list is as follows. Topmost language has highest priority and so forth.
 * Auto-detected language or language set with `--lang LANGUAGE` or `lang="LANGUAGE"`
 * en
 * de
@@ -39,7 +39,7 @@ Skyscraper's default internal language priority list is as follows. Topmost lang
 * es
 
 ## Configuring language
-It is possible to manipulate the default internal language priority list. You can either do this on command-line or through `/home/USER/.skyscraper/config.ini`. It is recommended to set it in `config.ini` for a permanent setup.
+It is possible to manipulate the default internal language priority list. You can either do this on command-line or through `/home/USER/.steamscraper/config.ini`. It is recommended to set it in `config.ini` for a permanent setup.
 
 ### config.ini
 Read [this](CONFIGINI.md#langen) and [this](CONFIGINI.md#langpriosendees).

@@ -1,5 +1,5 @@
 # Artwork look and effects
-Skyscraper allows you to fully customize how you want the final frontend artwork to appear by editing the file `/home/USER/.skyscraper/artwork.xml`. Each piece of artwork can be composited from one or more of the other artwork resources and you can even apply several effects to them.
+Steamscraper allows you to fully customize how you want the final frontend artwork to appear by editing the file `/home/USER/.steamscraper/artwork.xml`. Each piece of artwork can be composited from one or more of the other artwork resources and you can even apply several effects to them.
 
 * Each `<output>` node exports a single piece of artwork.
 * If no `<layer>` nodes are nested in an output node, it will simply export the defined type as raw unmanipulated artwork.
@@ -7,11 +7,11 @@ Skyscraper allows you to fully customize how you want the final frontend artwork
 
 Read on for an example `artwork.xml` and a more thorough description of the `<output>`, `<layer>` and the various available effect nodes.
 
-NOTE 1!!! Some users seem to have a habbit of editing the `/home/USER/skysource/artwork.xml` file. THIS IS NOT THE CORRECT FILE! Please read the first paragraph. :)
+NOTE 1!!! Some users seem to have a habit of editing the `/home/USER/skysource/artwork.xml` file. THIS IS NOT THE CORRECT FILE! Please read the first paragraph. :)
 
-NOTE 2! Every time you change the artwork configuration, remember to regenerate the game list. Your changes won't take effect until you do so. Read more about this [here](https://github.com/muldjord/skyscraper/blob/master/docs/USECASE.md#the-game-list-generation-phase).
+NOTE 2! Every time you change the artwork configuration, remember to regenerate the game list. Your changes won't take effect until you do so. Read more about this [here](https://github.com/withertech/steamscraper/blob/master/docs/USECASE.md#the-game-list-generation-phase).
 
-Watch a video demonstrating the artwork compositing features [here](https://youtu.be/TIDD8EFSz50). Note that the video is quite old and only demonstrates a fraction of the possibilities you have with the Skyscraper compositor. It's all thoroughly documented below.
+Watch a video demonstrating the artwork compositing features [here](https://youtu.be/TIDD8EFSz50). Note that the video is quite old and only demonstrates a fraction of the possibilities you have with the Steamscraper compositor. It's all thoroughly documented below.
 
 ## Example artwork.xml
 An example could look something like this:
@@ -77,6 +77,7 @@ The type to be exported. Can be:
 * logo
 * marquee
 * steamgrid
+* icon
 * hero
 
 #### 'resource' attribute [from v2.7.6] (Optional)
@@ -86,11 +87,12 @@ The resource attribute can be set to one of the following:
 * logo
 * marquee
 * steamgrid
+* icon
 * hero
 
 For instance, if you wish to export a 'marquee' image but want it to make use of the 'logo' resource instead, you can set ```<output type="marquee" resource="logo"/>```. It will then export a 'marquee' but use the raw unmanipulated 'wheel' image when doing so. So if your frontend theme, such as some EmulationStation themes, makes use of the 'marquee' artwork, it will then be using the 'wheel' for it. If this attribute is left out, 'resource' will be set to the same as 'type'.
 
-NOTE! The `screenshot`, `cover`, `logo`, `marquee`, `steamgrid` and `hero` types are hardcoded. It's not currently possible to create custom types.
+NOTE! The `screenshot`, `cover`, `logo`, `marquee`, `steamgrid`, `icon` and `hero` types are hardcoded. It's not currently possible to create custom types. also, the `hero` type does not get downloaded from screenscraper and must be generated if it is to be used.
 
 #### 'mpixels' attribute [from v2.7.8] (Optional)
 Set the desired area size for the image resource in mpixels (eg '0.1'). This can be used as an alternative to setting width or height and is useful in cases where images vary a lot in size. 'width' and 'height' attributes will be ignored if this is set.
@@ -115,6 +117,7 @@ The artwork resource to be used by the layer. It can be:
 * logo
 * marquee
 * steamgrid
+* icon
 * hero
 
 If the resource attribute is left out the layer will simply be transparent. This is useful when aligning nested layers that differ in size across games.
@@ -447,16 +450,16 @@ The blue color value for the outline. Can be 0-255. If left out it is set to 0.
 Provides the color to use hex-style. This can be used instead of the 'red', 'green' and 'blue' attributes described above. An example could be 'color="#ff0099"'.
 
 ## Custom image resources
-From Skyscraper version 2.3.0 you can use custom image resources wherever the documentation says so. Place your custom resources in the '`/home/USER/.skyscraper/resources`' folder and use it by adding the filename to the attribute.
+From Steamscraper version 2.3.0 you can use custom image resources wherever the documentation says so. Place your custom resources in the '`/home/USER/.steamscraper/resources`' folder and use it by adding the filename to the attribute.
 
 Example:
 ```
 <gamebox side="megadrive_logo.png" rotate="90"/>
 ```
-The file megadrive_logo.png will then be loaded from the '`/home/USER/.skyscraper/resources/megadrive_logo.png`' file. Feel free to create subfolders inside the resources folder. If you do, remember to add the partial path to the filename like so:
+The file megadrive_logo.png will then be loaded from the '`/home/USER/.steamscraper/resources/megadrive_logo.png`' file. Feel free to create subfolders inside the resources folder. If you do, remember to add the partial path to the filename like so:
 ```
 <gamebox side="platform_logos/megadrive_logo.png" rotate="90"/>
 ```
-This will look for the file at '`/home/USER/.skyscraper/resources/platform_logos/megadrive_logo.png`'.
+This will look for the file at '`/home/USER/.steamscraper/resources/platform_logos/megadrive_logo.png`'.
 
-Word of warning: All custom image resources are loaded into memory when Skyscraper starts to avoid repeatedly reading them from disc / SD card. So please keep your resources to a minimum - otherwise it might exceed the total memory on the Pi which will cause Skyscraper to get killed by the kernel.
+Word of warning: All custom image resources are loaded into memory when Steamscraper starts to avoid repeatedly reading them from disc / SD card. So please keep your resources to a minimum - otherwise it might exceed the total memory on the Pi which will cause Steamscraper to get killed by the kernel.

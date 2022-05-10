@@ -367,7 +367,7 @@ QString StrTools::conformTags(const QString str)
 
 QString StrTools::getVersionHeader()
 {
-	QString headerString = "Running Skyscraper v" VERSION " by Lars Muldjord";
+	QString headerString = "Running Steamscraper v" VERSION " by Witherking25, a fork of Skyscraper by Lars Muldjord";
 	QString dashesString = "";
 	for (int a = 0; a < headerString.length(); ++a)
 	{

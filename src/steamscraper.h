@@ -40,14 +40,14 @@
 
 #include <QCommandLineParser>
 
-class Skyscraper : public QObject
+class Steamscraper : public QObject
 {
 	Q_OBJECT
 
 public:
-	Skyscraper(const QCommandLineParser &parser, const QString &currentDir);
+	Steamscraper(const QCommandLineParser &parser, const QString &currentDir);
 
-	~Skyscraper();
+	~Steamscraper();
 
 	QSharedPointer<Queue> queue;
 	QSharedPointer<NetManager> manager;

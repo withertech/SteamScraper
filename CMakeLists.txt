@@ -1,4 +1,4 @@
-project( SteamScraper )
+project( Steamscraper )
 cmake_minimum_required( VERSION 3.1 )
 set( CMAKE_CXX_STANDARD 14 )
 set( CMAKE_INCLUDE_CURRENT_DIR ON )
@@ -12,7 +12,7 @@ find_package ( Qt5Network REQUIRED )
 find_package ( Qt5Xml REQUIRED )
 file ( STRINGS ./VERSION VERSION )
 add_compile_definitions( ${VERSION} )
-set ( SteamScraper_HDRS
+set ( Steamscraper_HDRS
 	src/xmlreader.h
 	src/settings.h
 	src/strtools.h
@@ -25,9 +25,9 @@ set ( SteamScraper_HDRS
 	src/queue.h
 	)
 
-set ( SteamScraper_SRCS
+set ( Steamscraper_SRCS
 	src/main.cpp
-	src/skyscraper.cpp
+	src/steamscraper.cpp
 	src/netmanager.cpp
 	src/netcomm.cpp
 	src/xmlreader.cpp
@@ -70,8 +70,8 @@ set ( SteamScraper_SRCS
 	src/queue.cpp
 	)
 
-set ( SteamScraper_MOCS
-	src/skyscraper.h
+set ( Steamscraper_MOCS
+		src/steamscraper.h
 	src/netmanager.h
 	src/netcomm.h
 	src/compositor.h
@@ -104,8 +104,46 @@ set ( SteamScraper_MOCS
 	src/fxrotate.h
 	src/fxscanlines.h
 	)
-QT5_WRAP_CPP(MOCS ${SteamScraper_MOCS})
 
-add_executable ( SteamScraper ${SteamScraper_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS} )
-target_link_libraries ( SteamScraper  Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Xml )
-install(TARGETS SteamScraper DESTINATION bin)
+set ( Steamscraper_EXAMPLES
+		config.ini.example
+		README.md
+		hints.xml
+		artwork.xml
+		aliasMap.csv
+		mameMap.csv
+		docs/ARTWORK.md
+		tgdb_developers.json
+		tgdb_publishers.json
+)
+
+set ( Steamscraper_EXAMPLES_CACHE
+		cache/priorities.xml.example
+		docs/CACHE.md
+)
+
+set ( SteamScraper_EXAMPLES_IMPORT
+		docs/IMPORT.md
+		import/definitions.dat.example1
+		import/definitions.dat.example2
+)
+
+set ( Steamscraper_EXAMPLES_RESOURCES
+		resources/maskexample.png
+		resources/frameexample.png
+		resources/boxfront.png
+		resources/boxside.png
+		resources/scanlines1.png
+		resources/scanlines2.png
+)
+
+QT5_WRAP_CPP(MOCS ${Steamscraper_MOCS})
+
+add_executable (Steamscraper ${Steamscraper_SRCS} ${UIS} ${RSCS} ${TRS} ${MOCS})
+target_link_libraries (Steamscraper Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Xml)
+target_compile_definitions(Steamscraper PUBLIC PREFIX="${CMAKE_INSTALL_PREFIX}")
+install(TARGETS Steamscraper DESTINATION bin)
+install(FILES ${Steamscraper_EXAMPLES} DESTINATION etc/steamscraper)
+install(FILES ${Steamscraper_EXAMPLES_CACHE} DESTINATION etc/steamscraper/cache)
+install(FILES ${Steamscraper_EXAMPLES_IMPORT} DESTINATION etc/steamscraper/import)
+install(FILES ${Steamscraper_EXAMPLES_RESOURCES} DESTINATION etc/steamscraper/resources)
